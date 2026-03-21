@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shivamkumar.github.io/sitemap.xml
+Sitemap: https://shivamkumarptu.github.io/Business-Site/sitemap.xml
