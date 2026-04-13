@@ -192,6 +192,7 @@
     .project-tag{display:inline-block;background:#f3f7f8;color:var(--navy);padding:8px 12px;border-radius:20px;margin:6px 8px 0 0;font-size:0.88rem}
     .tech-tag{background:var(--off-white);padding:5px 12px;border-radius:20px;font-size:0.85rem;color:var(--dark-gray)}
     .portfolio-cta{display:inline-block;color:var(--cyan);font-weight:500;text-decoration:none;margin-top:18px}
+    .hidden-project{display:none !important}
     .view-more{text-align:center;margin-top:50px}
     
     /* Testimonials Cards Styles */
@@ -368,106 +369,96 @@
             </div>
 
             <div class="portfolio-grid">
-              <div class ="portfolio-card" onclick="window.open('https://github.com/ShivamKumarPTU/GeoFence-Tracker', '_blank')">
+              <div class="portfolio-card" onclick="window.open('https://github.com/ShivamKumarPTU/VoxAnalyzer', '_blank')">
+                    <div class="portfolio-image">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>VoxAnalyzer — AI Voice Emotion Analyzer</h3>
+                        <p>Full-stack Android app for voice emotion analysis with secure Google Cloud Run deployment, Whisper speech-to-text, and transformer-based segment emotion detection.</p>
+                        <div class="portfolio-tech">
+                            <span class="project-tag">Kotlin</span>
+                            <span class="project-tag">OpenAI Whisper</span>
+                            <span class="project-tag">Transformer</span>
+                            <span class="project-tag">Google Cloud Run</span>
+                            <span class="project-tag">MVVM</span>
+                        </div>
+                        <a href="https://github.com/ShivamKumarPTU/VoxAnalyzer" class="portfolio-cta" target="_blank">GitHub Project Link →</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" onclick="window.open('https://github.com/ShivamKumarPTU/NightLibrary', '_blank')">
+                    <div class="portfolio-image">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>NightLibrary — Secure Media Vault</h3>
+                        <p>Privacy-focused Android vault for sensitive media with offline-first Room persistence, background workers, and encryption-ready storage handling.</p>
+                        <div class="portfolio-tech">
+                            <span class="project-tag">Kotlin</span>
+                            <span class="project-tag">Room Database</span>
+                            <span class="project-tag">WorkManager</span>
+                            <span class="project-tag">FileProvider</span>
+                            <span class="project-tag">Offline-first</span>
+                        </div>
+                        <a href="https://github.com/ShivamKumarPTU/NightLibrary" class="portfolio-cta" target="_blank">GitHub Project Link →</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card" onclick="window.open('https://github.com/ShivamKumarPTU/GeoFence-Tracker', '_blank')">
                     <div class="portfolio-image">
                         <i class="fas fa-map-marked-alt"></i>
                     </div>
                     <div class="portfolio-content">
-                        <h3>GeoFence Tracker App</h3>
-                        <p>Android app that tracks user location and sends notifications upon entering/exiting predefined geofences using Google Maps API.</p>
+                        <h3>GeoFence Tracker — Child Safety</h3>
+                        <p>Android app with geofences, entry/exit detection, and persistent location history using Google Maps SDK and Room Database.</p>
                         <div class="portfolio-tech">
                             <span class="project-tag">Kotlin</span>
-                            <span class="project-tag">Google Maps API</span>
-                            <span class="project-tag">Geofencing</span>
+                            <span class="project-tag">Geofencing API</span>
+                            <span class="project-tag">Background Location</span>
                             <span class="project-tag">Room Database</span>
-                            <span class="project-tag">Foreground Service</span>
+                            <span class="project-tag">Google Maps</span>
                         </div>
-                        <a href="https://github.com/ShivamKumarPTU/GeoFence-Tracker" class="portfolio-cta" target="_blank">View Details →</a>
+                        <a href="https://github.com/ShivamKumarPTU/GeoFence-Tracker" class="portfolio-cta" target="_blank">GitHub Project Link →</a>
                     </div>
                 </div>
 
-                <div class="portfolio-card" onclick="window.open('https://github.com/ShivamKumarPTU/Full_Screen_Timer', '_blank')">
+                <div class="portfolio-card hidden-project" onclick="window.open('https://github.com/ShivamKumarPTU/Full_Screen_Timer', '_blank')">
                     <div class="portfolio-image">
-                        <i class="fas fa-clock"></i>
+                        <i class="fas fa-stopwatch"></i>
                     </div>
                     <div class="portfolio-content">
                         <h3>Full Screen Timer App</h3>
-                        <p>Full-screen timer app with multiple modes, custom intervals, and a distraction-free interface.</p>
+                        <p>Distraction-free timer app with persistent sessions, Firebase Auth, DataStore, and lifecycle-aware battery optimization.</p>
                         <div class="portfolio-tech">
                             <span class="project-tag">Kotlin</span>
-                            <span class="project-tag">Room DB</span>
-                            <span class="project-tag">WorkManager</span>
-                            <span class="project-tag">Material Design</span>
+                            <span class="project-tag">Firebase Auth</span>
+                            <span class="project-tag">DataStore</span>
+                            <span class="project-tag">Battery Optimization</span>
+                            <span class="project-tag">Material 3</span>
                         </div>
-                        <a href="https://github.com/ShivamKumarPTU/Full_Screen_Timer" class="portfolio-cta" target="_blank">View Details →</a>
+                        <a href="https://github.com/ShivamKumarPTU/Full_Screen_Timer" class="portfolio-cta" target="_blank">GitHub Project Link →</a>
+                    </div>
+                </div>
+
+                <div class="portfolio-card hidden-project" onclick="window.open('https://github.com/ShivamKumarPTU/GymSaathi', '_blank')">
+                    <div class="portfolio-image">
+                        <i class="fas fa-dumbbell"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>GymSaathi App</h3>
+                        <p>Fitness app with Firebase authentication, biometric login, workout tracking, and progress analytics using clean MVVM architecture.</p>
+                        <div class="portfolio-tech">
+                            <span class="project-tag">Kotlin</span>
+                            <span class="project-tag">Firebase</span>
+                            <span class="project-tag">Room Database</span>
+                            <span class="project-tag">Jetpack Compose</span>
+                            <span class="project-tag">Biometric Login</span>
+                        </div>
+                        <a href="https://github.com/ShivamKumarPTU/GymSaathi" class="portfolio-cta" target="_blank">GitHub Project Link →</a>
                     </div>
                 </div>
             </div>
-
-           <div id="moreProjectsContainer" style="display:none;margin-top:30px">
-  <div class="portfolio-grid">
-
-    <div class="portfolio-card">
-
-  <!-- Radar Image -->
-  <div class="portfolio-image"
-       style="background:#0f172a; padding:12px; display:flex; align-items:center; justify-content:center;">
-    <img src="radar1.jpg"
-         alt="Radar System Project"
-         style="
-           max-width:100%;
-           max-height:100%;
-           object-fit:contain;
-           display:block;
-         ">
-  </div>
-
-  <!-- Content -->
-  <div class="portfolio-content">
-    <h3>Smart Radar System</h3>
-    <p>
-      Arduino-based radar system using ultrasonic sensors to detect objects
-      and visualize distance in real time across a 180° scanning range.
-    </p>
-
-    <div class="portfolio-tech">
-      <span class="project-tag">Arduino</span>
-      <span class="project-tag">Ultrasonic Sensor</span>
-      <span class="project-tag">Embedded C</span>
-      <span class="project-tag">Processing</span>
-    </div>
-  </div>
-
-</div>
-
-
-    <!-- GymSaathi App -->
-    <div class="portfolio-card"
-         onclick="window.open('https://github.com/ShivamKumarPTU/GymSaathi', '_blank')">
-      <div class="portfolio-image">
-        <i class="fas fa-dumbbell"></i>
-      </div>
-      <div class="portfolio-content">
-        <h3>GymSaathi App</h3>
-        <p>
-          Fitness app with Firebase authentication & biometric login,
-          workout tracking, and progress analytics.
-        </p>
-        <div class="portfolio-tech">
-          <span class="project-tag">Kotlin</span>
-          <span class="project-tag">Firebase</span>
-          <span class="project-tag">Room DB</span>
-          <span class="project-tag">Jetpack Compose</span>
-        </div>
-        <a href="https://github.com/ShivamKumarPTU/GymSaathi"
-           class="portfolio-cta" target="_blank">
-          View Details →
-        </a>
-      </div>
-    </div>
-
-  </div>
-</div>
 
 
             <div class="view-more">
@@ -848,19 +839,13 @@
 
     // More Projects button functionality
     const moreProjectsBtn = document.getElementById('moreProjectsBtn');
-    const moreProjectsContainer = document.getElementById('moreProjectsContainer');
-    
-    if(moreProjectsBtn){
+    const hiddenProjectCards = document.querySelectorAll('.portfolio-card.hidden-project');
+
+    if(moreProjectsBtn && hiddenProjectCards.length){
       moreProjectsBtn.addEventListener('click', function(){
-        const noMoreProjects = document.getElementById('noMoreProjects');
-        if(moreProjectsContainer.style.display === 'none'){
-          moreProjectsContainer.style.display = 'block';
-          moreProjectsBtn.textContent = 'Hide Projects ↑';
-          moreProjectsBtn.style.marginTop = '0';
-        } else {
-          moreProjectsContainer.style.display = 'none';
-          moreProjectsBtn.textContent = 'More Projects →';
-        }
+        const collapsed = hiddenProjectCards[0].classList.contains('hidden-project');
+        hiddenProjectCards.forEach(card => card.classList.toggle('hidden-project', !collapsed));
+        moreProjectsBtn.textContent = collapsed ? 'Hide Projects ↑' : 'More Projects →';
       });
     }
 
