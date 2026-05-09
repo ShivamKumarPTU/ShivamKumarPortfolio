@@ -1359,7 +1359,6 @@
       let isChatOpened = false;
       let hasWelcomed = false;
       let chatHistory = [];
-      const GROQ_API_KEY = "YOUR_GROQ_API_KEY_HERE"; // Add your Groq API key here
       
       const MY_DATA = {
         basic: {
@@ -1612,20 +1611,13 @@ ${JSON.stringify(MY_DATA, null, 2)}
         showTypingIndicator();
         
         try {
-          const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          const response = await fetch('/.netlify/functions/chat', {
             method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${GROQ_API_KEY}`
-            },
             body: JSON.stringify({
-              model: 'llama-3.3-70b-versatile',
               messages: [
                 { role: 'system', content: systemPrompt },
                 ...chatHistory
-              ],
-              temperature: 0.5,
-              max_tokens: 350
+              ]
             })
           });
           
