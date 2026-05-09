@@ -1066,13 +1066,15 @@
         y: "-100%",
         duration: 0.8,
         ease: "expo.inOut",
-        onComplete: () => {
-          document.getElementById('preloader').style.display = 'none';
-          // Ensure site is visible even if script failed
-          document.body.style.overflow = 'auto';
+        onStart: () => {
+          // Start animations slightly before preloader is fully gone for seamless transition
           if (typeof initAllAnimations === 'function') {
             initAllAnimations();
           }
+        },
+        onComplete: () => {
+          document.getElementById('preloader').style.display = 'none';
+          document.body.style.overflow = 'auto';
         }
       });
     }
@@ -1110,10 +1112,10 @@
             y: 0,
             opacity: 1,
             scale: 1,
-            stagger: 0.02,
-            duration: 0.8,
-            ease: 'expo.out',
-            delay: 0.2, // Small delay to sync with preloader exit
+            stagger: 0.015, // Snappier
+            duration: 0.6,
+            ease: 'back.out(1.7)',
+            delay: 0.1, 
             onComplete: () => {
               // Smooth gradient sweep
               gsap.to(heroTitle, {
@@ -1410,6 +1412,9 @@
 
     // Main animation coordinator
     function initAllAnimations() {
+      if (window.animationsInitialized) return;
+      window.animationsInitialized = true;
+
       initHeroText();
       initGeneralReveals();
       initHeadlinesScramble();

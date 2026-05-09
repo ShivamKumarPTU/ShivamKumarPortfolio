@@ -478,9 +478,11 @@ section {
     #00ADB5 100%
   );
   background-size: 200% auto;
+  background-position: 100% 0%;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  color: #fff;
+  -webkit-text-fill-color: transparent;
   will-change: background-position, transform, opacity;
   display: block;
 }
