@@ -40,9 +40,13 @@
 
   <!-- Preloader -->
   <div id="preloader">
+    <video class="preloader-video" autoplay muted loop playsinline preload="auto">
+      <source src="assets/rank2.0.mp4" type="video/mp4">
+    </video>
     <div class="loader-content">
-      <div class="loader-text" id="loader-text">Loading Shivam App Studio</div>
-      <div class="loader-bar-container">
+      <div class="loader-text">Shivam App Studio</div>
+      <div class="loader-percentage" id="loader-percentage">0%</div>
+      <div class="loader-bar-container" style="width: 300px;">
         <div class="loader-bar" id="loader-bar"></div>
       </div>
     </div>
@@ -994,31 +998,58 @@
     });
     gsap.ticker.lagSmoothing(0);
 
-    // Preloader Logic
-    window.addEventListener('load', () => {
-      const tl = gsap.timeline();
+    // Preloader Logic with Percentage
+    function startPreloader() {
+      const percentageEl = document.getElementById('loader-percentage');
+      const barEl = document.getElementById('loader-bar');
+      let progress = 0;
       
-      tl.to("#loader-bar", {
-        width: "100%",
-        duration: 0.8,
-        ease: "power2.inOut"
-      })
-      .to("#loader-text", {
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 5) + 1;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          finishPreloader();
+        }
+        if (percentageEl) percentageEl.textContent = `${progress}%`;
+        if (barEl) barEl.style.width = `${progress}%`;
+      }, 50);
+
+      // Fallback timeout to ensure site is always accessible
+      const fallback = setTimeout(() => {
+        clearInterval(interval);
+        finishPreloader();
+      }, 5000); // Max 5 seconds
+
+      window.addEventListener('load', () => {
+        // Optional: speed up progress once page is fully loaded
+        progress = Math.max(progress, 80);
+      });
+    }
+
+    function finishPreloader() {
+      if (window.preloaderFinished) return;
+      window.preloaderFinished = true;
+
+      const tl = gsap.timeline();
+      tl.to(".loader-content", {
         opacity: 0,
-        y: -20,
-        duration: 0.4,
-        ease: "power2.in"
-      }, "+=0.2")
+        y: -40,
+        duration: 0.6,
+        ease: "power3.in"
+      })
       .to("#preloader", {
         y: "-100%",
         duration: 1,
-        ease: "power4.inOut",
+        ease: "expo.inOut",
         onComplete: () => {
           document.getElementById('preloader').style.display = 'none';
           initAllAnimations();
         }
       });
-    });
+    }
+
+    startPreloader();
 
     // Navigation ScrollTo
     document.querySelectorAll('.nav-links a, .btn-ghost, .btn-primary').forEach(anchor => {
