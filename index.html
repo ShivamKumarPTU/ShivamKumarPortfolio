@@ -1089,15 +1089,17 @@
 
     function initHeroText() {
       const heroTitle = document.querySelector('.hero-title');
+      console.log('initHeroText called. Found element:', !!heroTitle);
       if (heroTitle) {
         // Initialize SplitType for high-fidelity word & char motion
         const split = new SplitType(heroTitle, {
           types: 'words, chars'
         });
 
-        // Ensure visibility if split worked but GSAP fails
+        // Ensure visibility and prepare for gradient sweep
+        heroTitle.style.color = 'white';
+        heroTitle.style.webkitTextFillColor = 'transparent';
         heroTitle.style.opacity = '1';
-        heroTitle.style.webkitTextFillColor = 'inherit';
 
         // Setup absolute character limits and GPU acceleration variables
         if (typeof gsap !== 'undefined') {

@@ -482,7 +482,6 @@ section {
   -webkit-background-clip: text;
   background-clip: text;
   color: #fff;
-  -webkit-text-fill-color: transparent;
   will-change: background-position, transform, opacity;
   display: block;
 }
