@@ -56,7 +56,44 @@
         <div class="loader-bar" id="loader-bar"></div>
       </div>
     </div>
-  </div>
+  <!-- Instant Preloader Start -->
+  <script>
+    (function() {
+      const start = Date.now();
+      const interval = setInterval(() => {
+        const percentageEl = document.getElementById('loader-percentage');
+        const barEl = document.getElementById('loader-bar');
+        if (!percentageEl) return;
+        
+        const elapsed = Date.now() - start;
+        let progress = Math.min(Math.floor((elapsed / 2500) * 100), 99);
+        
+        percentageEl.textContent = `${progress}%`;
+        if (barEl) barEl.style.width = `${progress}%`;
+      }, 50);
+
+      window.addEventListener('load', () => {
+        clearInterval(interval);
+        const pEl = document.getElementById('loader-percentage');
+        const bEl = document.getElementById('loader-bar');
+        if (pEl) pEl.textContent = '100%';
+        if (bEl) bEl.style.width = '100%';
+        setTimeout(() => {
+          if (typeof finishPreloader === 'function') finishPreloader();
+          else document.getElementById('preloader').style.display = 'none';
+        }, 200);
+      });
+
+      // Absolute failsafe
+      setTimeout(() => {
+        clearInterval(interval);
+        if (document.getElementById('preloader')) {
+          document.getElementById('preloader').style.display = 'none';
+          document.body.style.overflow = 'auto';
+        }
+      }, 5000);
+    })();
+  </script>
 
   <!-- header -->
   <header>
@@ -1024,59 +1061,39 @@
       window.lenis = lenis;
     }
 
-    // Preloader Logic with Percentage
-    function startPreloader() {
-      const percentageEl = document.getElementById('loader-percentage');
-      const barEl = document.getElementById('loader-bar');
-      let progress = 0;
-      
-      const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 8) + 2; 
-        if (progress >= 100) {
-          progress = 100;
-          clearInterval(interval);
-          finishPreloader();
-        }
-        if (percentageEl) percentageEl.textContent = `${progress}%`;
-        if (barEl) barEl.style.width = `${progress}%`;
-      }, 30);
-
-      setTimeout(() => {
-        clearInterval(interval);
-        finishPreloader();
-      }, 4000);
-
-      window.addEventListener('load', () => {
-        progress = Math.max(progress, 90);
-      });
-    }
-
     function finishPreloader() {
       if (window.preloaderFinished) return;
       window.preloaderFinished = true;
 
-      const tl = gsap.timeline();
-      tl.to(".loader-content", {
-        opacity: 0,
-        y: -40,
-        duration: 0.6,
-        ease: "power3.in"
-      })
-      .to("#preloader", {
-        y: "-100%",
-        duration: 0.8,
-        ease: "expo.inOut",
-        onStart: () => {
-          // Start animations slightly before preloader is fully gone for seamless transition
-          if (typeof initAllAnimations === 'function') {
-            initAllAnimations();
+      if (typeof gsap !== 'undefined') {
+        const tl = gsap.timeline();
+        tl.to(".loader-content", {
+          opacity: 0,
+          y: -40,
+          duration: 0.6,
+          ease: "power3.in"
+        })
+        .to("#preloader", {
+          y: "-100%",
+          duration: 0.8,
+          ease: "expo.inOut",
+          onStart: () => {
+            if (typeof initAllAnimations === 'function') {
+              initAllAnimations();
+            }
+          },
+          onComplete: () => {
+            const preloader = document.getElementById('preloader');
+            if (preloader) preloader.style.display = 'none';
+            document.body.style.overflow = 'auto';
           }
-        },
-        onComplete: () => {
-          document.getElementById('preloader').style.display = 'none';
-          document.body.style.overflow = 'auto';
-        }
-      });
+        });
+      } else {
+        const preloader = document.getElementById('preloader');
+        if (preloader) preloader.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        if (typeof initAllAnimations === 'function') initAllAnimations();
+      }
     }
   </script>
 
@@ -1090,28 +1107,39 @@
     function initHeroText() {
       const heroTitle = document.querySelector('.hero-title');
       if (heroTitle) {
-        // Initialize SplitType - this will wrap every char in a div
-        const split = new SplitType(heroTitle, { types: 'chars,words' });
+        if (typeof SplitType !== 'undefined') {
+          const split = new SplitType(heroTitle, { types: 'chars,words' });
+          gsap.set(split.chars, {
+            display: "inline-block",
+            webkitTextFillColor: "transparent",
+            backgroundClip: "text",
+            webkitBackgroundClip: "text",
+            backgroundImage: "inherit"
+          });
+          gsap.from(split.chars, {
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.015,
+            ease: "expo.out",
+            delay: 0.6,
+            clearProps: "y,opacity"
+          });
+        }
 
-        // Ensure the characters have the right color and visibility
-        gsap.set(split.chars, {
-          display: "inline-block",
-          webkitTextFillColor: "transparent", // Only apply this here
-          backgroundClip: "text",
-          webkitBackgroundClip: "text",
-          backgroundImage: "inherit"
-        });
-
-        // The Reveal Animation - using 'from' is safer
-        gsap.from(split.chars, {
-          y: 40,
-          opacity: 0,
-          duration: 0.8,
-          stagger: 0.015,
-          ease: "expo.out",
-          delay: 0.6, // Wait for preloader to lift
-          clearProps: "y,opacity" // Clean up after animation
-        });
+        // ScrollTrigger-based sweep (Scrubs lighting as you scroll)
+        if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+          gsap.to(heroTitle, {
+            backgroundPosition: '0% 0%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: heroTitle,
+              start: 'top 70%',
+              end: 'bottom 20%',
+              scrub: true
+            }
+          });
+        }
 
         // Interactive mouse lighting tracking
         heroTitle.addEventListener('mousemove', (e) => {
@@ -1123,19 +1151,6 @@
             ease: 'power2.out',
             overwrite: 'auto'
           });
-        });
-      }
-    }
-        // ScrollTrigger-based sweep (Scrubs lighting as you scroll)
-        gsap.to(heroTitle, {
-          backgroundPosition: '0% 0%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroTitle,
-            start: 'top 70%',
-            end: 'bottom 20%',
-            scrub: true
-          }
         });
 
         // Smoothly restore on mouse leave
@@ -1412,12 +1427,18 @@
 
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', () => {
-        initAllAnimations();
-        startPreloader();
+        try {
+          initAllAnimations();
+        } catch (e) {
+          console.error("Animation init failed:", e);
+        }
       });
     } else {
-      initAllAnimations();
-      startPreloader();
+      try {
+        initAllAnimations();
+      } catch (e) {
+        console.error("Animation init failed:", e);
+      }
     }
   </script>
 
