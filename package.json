@@ -1,8 +1,7 @@
 {
   "name": "business-site",
   "version": "1.0.0",
-  "description": "<p align=\"center\">\r   <img \r     src=\"banner.png\"\r     alt=\"Native Android Developer – Kotlin & Firebase\"\r     width=\"1000\"\r   />\r </p>",
-  "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
