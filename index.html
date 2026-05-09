@@ -34,6 +34,12 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="icon" type="image/png" href="assets/logo1.png">
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  
+  <!-- Premium Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
 </head>
 
 <body class="lenis">
@@ -973,30 +979,54 @@
 
   <script>
     // Initialize Lenis
-    const lenis = new Lenis({
-      duration: 1.0,
-      easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t), // Snappier expo out
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
-      touchMultiplier: 1.5,
-      infinite: false,
-    });
+    if (typeof Lenis !== 'undefined') {
+      const lenis = new Lenis({
+        duration: 1.0,
+        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+        direction: 'vertical',
+        gestureDirection: 'vertical',
+        smooth: true,
+        mouseMultiplier: 1,
+        smoothTouch: false,
+        touchMultiplier: 1.5,
+        infinite: false,
+      });
 
-    function raf(time) {
-      lenis.raf(time);
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
 
-    // Sync ScrollTrigger with Lenis
-    lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => {
-      lenis.raf(time * 1000);
-    });
-    gsap.ticker.lagSmoothing(0);
+      // Sync ScrollTrigger with Lenis
+      if (typeof ScrollTrigger !== 'undefined') {
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+          lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+      }
+
+      // Navigation ScrollTo
+      document.querySelectorAll('.nav-links a, .btn-ghost, .btn-primary').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          const href = this.getAttribute('href');
+          if (href && href.startsWith('#')) {
+            const target = document.querySelector(href);
+            if (target) {
+              e.preventDefault();
+              lenis.scrollTo(target, {
+                offset: -72,
+                duration: 0.8,
+                easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+              });
+            }
+          }
+        });
+      });
+
+      window.lenis = lenis;
+    }
 
     // Preloader Logic with Percentage
     function startPreloader() {
@@ -1005,7 +1035,7 @@
       let progress = 0;
       
       const interval = setInterval(() => {
-        progress += Math.floor(Math.random() * 5) + 1;
+        progress += Math.floor(Math.random() * 8) + 2; // Faster increments
         if (progress >= 100) {
           progress = 100;
           clearInterval(interval);
@@ -1013,17 +1043,16 @@
         }
         if (percentageEl) percentageEl.textContent = `${progress}%`;
         if (barEl) barEl.style.width = `${progress}%`;
-      }, 50);
+      }, 30); // Faster interval
 
-      // Fallback timeout to ensure site is always accessible
-      const fallback = setTimeout(() => {
+      // Fallback timeout
+      setTimeout(() => {
         clearInterval(interval);
         finishPreloader();
-      }, 5000); // Max 5 seconds
+      }, 4000);
 
       window.addEventListener('load', () => {
-        // Optional: speed up progress once page is fully loaded
-        progress = Math.max(progress, 80);
+        progress = Math.max(progress, 90);
       });
     }
 
@@ -1040,43 +1069,24 @@
       })
       .to("#preloader", {
         y: "-100%",
-        duration: 1,
+        duration: 0.8,
         ease: "expo.inOut",
         onComplete: () => {
           document.getElementById('preloader').style.display = 'none';
-          initAllAnimations();
+          if (typeof initAllAnimations === 'function') initAllAnimations();
         }
       });
     }
 
     startPreloader();
-
-    // Navigation ScrollTo
-    document.querySelectorAll('.nav-links a, .btn-ghost, .btn-primary').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href && href.startsWith('#')) {
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            lenis.scrollTo(target, {
-              offset: -72,
-              duration: 0.8,
-              easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
-            });
-          }
-        }
-      });
-    });
   </script>
 
   <!-- Premium GSAP Interactive Lighting Module -->
-  <script type="module">
-    import { gsap } from 'gsap';
-    import { ScrollTrigger } from 'gsap/ScrollTrigger';
-    import SplitType from 'split-type';
-
-    gsap.registerPlugin(ScrollTrigger);
+  <script>
+    // Ensure GSAP is loaded before registering plugin
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+    }
 
     function initHeroText() {
       const heroTitle = document.querySelector('.hero-title');
