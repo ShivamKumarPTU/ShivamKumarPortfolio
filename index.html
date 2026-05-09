@@ -1090,25 +1090,38 @@
     function initHeroText() {
       const heroTitle = document.querySelector('.hero-title');
       if (heroTitle) {
-        // Reset styles for visibility
-        gsap.set(heroTitle, {
-          opacity: 0,
-          y: 20
+        // Initialize SplitType
+        const split = new SplitType(heroTitle, { types: 'chars,words' });
+
+        // Apply gradient styles via JS to ensure they only kick in when SplitType is ready
+        heroTitle.style.webkitTextFillColor = 'transparent';
+        heroTitle.style.backgroundClip = 'text';
+        
+        // Prepare characters for reveal
+        gsap.set(split.chars, { 
+          y: "100%",
+          opacity: 0 
         });
 
-        // Simple but elegant fade and rise
-        gsap.to(heroTitle, {
+        // The Reveal Animation
+        gsap.to(split.chars, {
+          y: "0%",
           opacity: 1,
-          y: 0,
-          duration: 1,
+          duration: 0.8,
+          stagger: 0.02,
+          ease: "expo.out",
           delay: 0.5,
-          ease: "power4.out",
-          onStart: () => {
-            heroTitle.style.visibility = "visible";
+          onComplete: () => {
+            // Start the gradient sweep after reveal
+            gsap.to(heroTitle, {
+              backgroundPosition: '0% 0%',
+              duration: 2,
+              ease: "power2.out"
+            });
           }
         });
 
-        // Interactive mouse lighting tracking (on the whole block)
+        // Interactive mouse lighting tracking
         heroTitle.addEventListener('mousemove', (e) => {
           const rect = heroTitle.getBoundingClientRect();
           const x = ((e.clientX - rect.left) / rect.width) * 100;

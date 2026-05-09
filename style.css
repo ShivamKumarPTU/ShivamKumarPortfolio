@@ -490,9 +490,6 @@ section {
   display: inline-block;
   will-change: transform, opacity;
   color: inherit;
-  background: inherit;
-  -webkit-background-clip: text;
-  background-clip: text;
 }
 
 .chip-frosted {
