@@ -36,7 +36,17 @@
   <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 
-<body>
+<body class="lenis">
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="loader-text" id="loader-text">Loading Shivam App Studio</div>
+      <div class="loader-bar-container">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+    </div>
+  </div>
 
   <!-- header -->
   <header>
@@ -94,7 +104,7 @@
   <main>
     <!-- Hero Section -->
     <section id="home" class="hero">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/download.mp4" type="video/mp4">
       </video>
       <div class="video-overlay" style="background: rgba(0,0,0,0.5)"></div>
@@ -132,7 +142,7 @@
 
     <!-- About Me Section -->
     <section id="about">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay" style="background: rgba(0,0,0,0.6)"></div>
@@ -233,7 +243,7 @@
 
     <!-- Portfolio Section -->
     <section id="portfolio">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay"></div>
@@ -324,7 +334,7 @@
 
     <!-- Services Section -->
     <section id="services">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay"></div>
@@ -407,7 +417,7 @@
 
     <!-- Tech Stack Section -->
     <section id="tech-stack">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay"></div>
@@ -466,7 +476,7 @@
 
     <!-- Testimonials Section -->
     <section id="testimonials">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay"></div>
@@ -617,7 +627,7 @@
 
     <!-- FAQ Section -->
     <section id="faq">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay"></div>
@@ -673,7 +683,7 @@
 
     <!-- Contact Section -->
     <section id="Get-In-Touch">
-      <video class="video-bg" autoplay muted loop playsinline>
+      <video class="video-bg" autoplay muted loop playsinline preload="auto">
         <source src="assets/rank1.0.mp4" type="video/mp4">
       </video>
       <div class="video-overlay"></div>
@@ -837,7 +847,7 @@
         var loopTyping = function() {
           if (word.length > 0) {
             element.textContent += word.shift();
-            timer = setTimeout(loopTyping, 100);
+            timer = setTimeout(loopTyping, 60);
           } else {
             setTimeout(deletingEffect, 2000);
           }
@@ -949,43 +959,84 @@
       });
     }
 
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', function (e) {
-        const target = this.getAttribute('href');
-        if (!target || target === '#') return;
-        const el = document.querySelector(target);
-        if (el) {
-          e.preventDefault();
-          const top = el.getBoundingClientRect().top + window.scrollY - 72;
-          window.scrollTo({ top, behavior: 'smooth' });
+  </script>
+
+  <!-- GSAP & Lenis Setup -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/dist/lenis.min.js"></script>
+
+  <script>
+    // Initialize Lenis
+    const lenis = new Lenis({
+      duration: 1.0,
+      easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t), // Snappier expo out
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 1.5,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
+    // Sync ScrollTrigger with Lenis
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+    gsap.ticker.lagSmoothing(0);
+
+    // Preloader Logic
+    window.addEventListener('load', () => {
+      const tl = gsap.timeline();
+      
+      tl.to("#loader-bar", {
+        width: "100%",
+        duration: 0.8,
+        ease: "power2.inOut"
+      })
+      .to("#loader-text", {
+        opacity: 0,
+        y: -20,
+        duration: 0.4,
+        ease: "power2.in"
+      }, "+=0.2")
+      .to("#preloader", {
+        y: "-100%",
+        duration: 1,
+        ease: "power4.inOut",
+        onComplete: () => {
+          document.getElementById('preloader').style.display = 'none';
+          initAllAnimations();
         }
       });
     });
 
-    const moreBtn = document.getElementById('moreProjectsBtn');
-    moreBtn && moreBtn.addEventListener('click', function () {
-      document.querySelectorAll('.hidden-project').forEach(p => p.style.display = 'block');
-      this.style.display = 'none';
-    });
-
-    // FAQ Accordion
-    document.querySelectorAll('.faq-question').forEach(button => {
-      button.addEventListener('click', () => {
-        const item = button.parentElement;
-        item.classList.toggle('active');
-      });
-    });
-
-    // Reveal Text on Scroll
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
+    // Navigation ScrollTo
+    document.querySelectorAll('.nav-links a, .btn-ghost, .btn-primary').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          const target = document.querySelector(href);
+          if (target) {
+            e.preventDefault();
+            lenis.scrollTo(target, {
+              offset: -72,
+              duration: 0.8,
+              easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+            });
+          }
         }
       });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+    });
   </script>
 
   <!-- Premium GSAP Interactive Lighting Module -->
@@ -1006,23 +1057,26 @@
 
         // Setup absolute character limits and GPU acceleration variables
         gsap.set(split.chars, {
-          y: 40,
-          opacity: 0
+          y: 60,
+          opacity: 0,
+          scale: 0.8
         });
 
-        // Stagger characters entrance
+        // Stagger characters entrance - making it snappy and instant
         gsap.to(split.chars, {
           y: 0,
           opacity: 1,
-          stagger: 0.03,
-          duration: 1.2,
-          ease: 'power4.out',
+          scale: 1,
+          stagger: 0.02,
+          duration: 0.8,
+          ease: 'expo.out',
+          delay: 0.2, // Small delay to sync with preloader exit
           onComplete: () => {
-            // Smooth gradient intro sweep on complete
+            // Smooth gradient sweep
             gsap.to(heroTitle, {
               backgroundPosition: '0% 0%',
-              duration: 2.0,
-              ease: 'power3.out'
+              duration: 1.5,
+              ease: 'power2.out'
             });
           }
         });
@@ -1292,9 +1346,28 @@
       });
     }
 
+    // General reveal for all elements with .reveal-text
+    function initGeneralReveals() {
+      const reveals = document.querySelectorAll('.reveal-text:not(.split-done)');
+      reveals.forEach(el => {
+        gsap.to(el, {
+          opacity: 1,
+          y: 0,
+          duration: 0.8,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 90%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+    }
+
     // Main animation coordinator
     function initAllAnimations() {
       initHeroText();
+      initGeneralReveals();
       initHeadlinesScramble();
       initServicesAnimations();
       initSplitTextParagraphs();
