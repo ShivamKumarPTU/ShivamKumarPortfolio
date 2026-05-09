@@ -489,7 +489,7 @@ section {
 .hero-title .char {
   display: inline-block;
   will-change: transform, opacity;
-  -webkit-text-fill-color: transparent;
+  color: inherit;
   background: inherit;
   -webkit-background-clip: text;
   background-clip: text;

@@ -1089,46 +1089,36 @@
 
     function initHeroText() {
       const heroTitle = document.querySelector('.hero-title');
-      console.log('initHeroText called. Found element:', !!heroTitle);
       if (heroTitle) {
-        // Initialize SplitType for high-fidelity word & char motion
-        const split = new SplitType(heroTitle, {
-          types: 'words, chars'
+        // Reset styles for visibility
+        gsap.set(heroTitle, {
+          opacity: 0,
+          y: 20
         });
 
-        // Ensure visibility and prepare for gradient sweep
-        heroTitle.style.color = 'white';
-        heroTitle.style.webkitTextFillColor = 'transparent';
-        heroTitle.style.opacity = '1';
+        // Simple but elegant fade and rise
+        gsap.to(heroTitle, {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          delay: 0.5,
+          ease: "power4.out",
+          onStart: () => {
+            heroTitle.style.visibility = "visible";
+          }
+        });
 
-        // Setup absolute character limits and GPU acceleration variables
-        if (typeof gsap !== 'undefined') {
-          gsap.set(split.chars, {
-            y: 60,
-            opacity: 0,
-            scale: 0.8
+        // Interactive mouse lighting tracking (on the whole block)
+        heroTitle.addEventListener('mousemove', (e) => {
+          const rect = heroTitle.getBoundingClientRect();
+          const x = ((e.clientX - rect.left) / rect.width) * 100;
+          gsap.to(heroTitle, {
+            backgroundPosition: `${x}% 0%`,
+            duration: 0.4,
+            ease: 'power2.out',
+            overwrite: 'auto'
           });
-
-          // Stagger characters entrance - making it snappy and instant
-          gsap.to(split.chars, {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            stagger: 0.015, // Snappier
-            duration: 0.6,
-            ease: 'back.out(1.7)',
-            delay: 0.1, 
-            onComplete: () => {
-              // Smooth gradient sweep
-              gsap.to(heroTitle, {
-                backgroundPosition: '0% 0%',
-                duration: 1.5,
-                ease: 'power2.out'
-              });
-            }
-          });
-        }
-
+        });
         // ScrollTrigger-based sweep (Scrubs lighting as you scroll)
         gsap.to(heroTitle, {
           backgroundPosition: '0% 0%',
@@ -1139,19 +1129,6 @@
             end: 'bottom 20%',
             scrub: true
           }
-        });
-
-        // Interactive mouse lighting tracking
-        heroTitle.addEventListener('mousemove', (e) => {
-          const rect = heroTitle.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-
-          gsap.to(heroTitle, {
-            backgroundPosition: `${x}% 0%`,
-            duration: 0.4,
-            ease: 'power2.out',
-            overwrite: 'auto'
-          });
         });
 
         // Smoothly restore on mouse leave
