@@ -1,26 +1,149 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Android App Case Studies | Shivam Kumar</title>
-<meta name="description" content="Real Android app development case studies by Shivam Kumar.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Android App Case Studies | Shivam Kumar</title>
+  <meta name="description" content="Real Android app development case studies by Shivam Kumar.">
+  <meta name="author" content="Shivam Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shivamkumarptu.github.io/Business-Site/android-app-case-studies.html">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+    .page-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .content-block {
+      max-width: 900px;
+      width: 100%;
+      z-index: 10;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+    .back-link:hover {
+      transform: translateX(-5px);
+    }
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .article-glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 40px;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+    }
+    .studies-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin: 30px 0;
+    }
+    .study-card {
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .study-card i {
+      font-size: 2rem;
+      color: var(--blue);
+      margin-bottom: 15px;
+    }
+    .study-card h3 {
+      font-size: 1.35rem;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Android App Development Case Studies</h1>
+  <section class="page-hero">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="assets/rank2.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay" style="background: rgba(0,0,0,0.7)"></div>
 
-<p>
-Case studies show real development experience and problem solving ability.
-</p>
+    <div class="content-block">
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+      
+      <h1 class="reveal-text">Android App Development Case Studies</h1>
+      
+      <div class="article-glass reveal-text" style="transition-delay: 0.2s">
+        <p>
+          Real-world case studies prove problem-solving capabilities, architecting strategies, and overall development performance. 
+          Discover how concepts become high-utility, live apps.
+        </p>
 
-<h2>Fitness App Case Study</h2>
-<p>
-Developed a fitness tracking app with Firebase authentication and analytics.
-</p>
+        <div class="studies-grid">
+          <div class="study-card">
+            <i class="fas fa-heartbeat"></i>
+            <h3>Fitness Tracking Suite</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 0;">Implemented lightweight background step analytics, secure Firebase OAuth logins, and live metric synchronizations with zero state leaks.</p>
+          </div>
+          <div class="study-card">
+            <i class="fas fa-map-marked-alt"></i>
+            <h3>Geolocational Geofencing</h3>
+            <p style="font-size: 0.95rem; margin-bottom: 0;">Designed a high-accuracy, zero-overhead background tracking interface utilizing the Google Maps SDK and custom geofencing alerts.</p>
+          </div>
+        </div>
 
-<h2>Location Tracker Case Study</h2>
-<p>
-Built geolocation tracking system using Google Maps API.
-</p>
+        <p style="margin-top: 40px;">
+          All solutions designed and engineered to perfection by Shivam Kumar, freelance Android specialist.
+        </p>
 
+        <div class="flip-3d" style="margin-top: 32px;">
+          <div class="flip-3d-inner">
+            <a href="index.html#Get-In-Touch" class="btn btn-primary">Start Your Case Study →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>

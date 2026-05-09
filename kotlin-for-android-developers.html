@@ -1,29 +1,156 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Kotlin for Android Developers | Shivam Kumar</title>
-<meta name="description" content="Learn Kotlin for Android development. Complete beginner guide by Shivam Kumar.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kotlin for Android Developers | Shivam Kumar</title>
+  <meta name="description" content="Learn Kotlin for Android development. Complete beginner guide by Shivam Kumar.">
+  <meta name="author" content="Shivam Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shivamkumarptu.github.io/Business-Site/kotlin-for-android-developers.html">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+    .page-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .content-block {
+      max-width: 900px;
+      width: 100%;
+      z-index: 10;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+    .back-link:hover {
+      transform: translateX(-5px);
+    }
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .article-glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 40px;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+    }
+    .features-list {
+      list-style: none;
+      padding: 0;
+      margin: 30px 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+    .feature-item {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .feature-item i {
+      font-size: 1.8rem;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+    .feature-item h4 {
+      color: #fff;
+      margin-bottom: 8px;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Kotlin for Android Developers</h1>
+  <section class="page-hero">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="assets/rank2.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay" style="background: rgba(0,0,0,0.7)"></div>
 
-<p>
-Kotlin is the official programming language for Android development.
-It is modern, concise and safe compared to Java.
-</p>
+    <div class="content-block">
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+      
+      <h1 class="reveal-text">Kotlin for Android Developers</h1>
+      
+      <div class="article-glass reveal-text" style="transition-delay: 0.2s">
+        <p>
+          Kotlin is the official, first-class language for native Android development. 
+          Its modern, functional, and highly concise syntax helps developers write safe and expressive logic.
+        </p>
 
-<h2>Why Kotlin?</h2>
-<ul>
-<li>Less boilerplate code</li>
-<li>Null safety</li>
-<li>Modern syntax</li>
-<li>Google official support</li>
-</ul>
+        <h2>Why Choose Kotlin?</h2>
+        <div class="features-list">
+          <div class="feature-item">
+            <i class="fas fa-feather"></i>
+            <h4>Minimalist Syntax</h4>
+            <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0;">Drastically reduces boilerplate code compared to legacy Java systems.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Null Safety</h4>
+            <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0;">Protects applications against the dreaded NullPointerException at compile time.</p>
+          </div>
+          <div class="feature-item">
+            <i class="fas fa-bolt"></i>
+            <h4>Coroutines</h4>
+            <p style="font-size:0.9rem; color:var(--muted); margin-bottom:0;">Handles high-performance asynchronous background operations seamlessly.</p>
+          </div>
+        </div>
 
-<p>
-This tutorial is created by Shivam Kumar, freelance Android developer.
-</p>
+        <p style="margin-top: 40px;">
+          This resource is maintained by Shivam Kumar, specializing in Kotlin product delivery and Jetpack Compose state-management architectures.
+        </p>
 
+        <div class="flip-3d" style="margin-top: 32px;">
+          <div class="flip-3d-inner">
+            <a href="index.html#Get-In-Touch" class="btn btn-primary">Start Kotlin App Project →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>

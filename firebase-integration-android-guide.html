@@ -1,37 +1,158 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Firebase Integration in Android | Shivam Kumar</title>
-<meta name="description" content="Learn Firebase integration in Android apps by Shivam Kumar. Step by step guide for authentication, database and notifications.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Integration in Android | Shivam Kumar</title>
+  <meta name="description" content="Learn Firebase integration in Android apps by Shivam Kumar. Step by step guide for authentication, database and notifications.">
+  <meta name="author" content="Shivam Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shivamkumarptu.github.io/Business-Site/firebase-integration-android-guide.html">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Main Styles -->
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body {
+      overflow-x: hidden;
+    }
+    .page-hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 20px;
+      position: relative;
+    }
+    .content-block {
+      max-width: 900px;
+      width: 100%;
+      z-index: 10;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--blue);
+      text-decoration: none;
+      margin-bottom: 24px;
+      font-weight: 600;
+      transition: transform 0.3s ease;
+    }
+    .back-link:hover {
+      transform: translateX(-5px);
+    }
+    h1 {
+      font-size: 3.5rem;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+    .article-glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px;
+      margin-top: 40px;
+    }
+    p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.8);
+      margin-bottom: 20px;
+    }
+    .services-tag-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+    .tag-card {
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+    .tag-card i {
+      font-size: 2rem;
+      color: var(--pink);
+      margin-bottom: 12px;
+    }
+    .tag-card h4 {
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Firebase Integration in Android Apps</h1>
+  <section class="page-hero">
+    <video class="video-bg" autoplay muted loop playsinline>
+      <source src="assets/rank2.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay" style="background: rgba(0,0,0,0.7)"></div>
 
-<p>
-Firebase is one of the most powerful backend solutions for Android apps.
-It provides authentication, realtime database, cloud messaging and analytics.
-</p>
+    <div class="content-block">
+      <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Portfolio</a>
+      
+      <h1 class="reveal-text">Firebase Integration in Android Apps</h1>
+      
+      <div class="article-glass reveal-text" style="transition-delay: 0.2s">
+        <p>
+          Firebase represents the most versatile and robust backend framework for modern mobile applications. 
+          By combining serverless scaling with real-time syncing, it helps businesses ship apps rapidly.
+        </p>
 
-<h2>Why Firebase?</h2>
-<ul>
-<li>No server setup required</li>
-<li>Fast development</li>
-<li>Scalable backend</li>
-<li>Easy authentication</li>
-</ul>
+        <h2>Standard Services Integrated</h2>
+        <div class="services-tag-grid">
+          <div class="tag-card">
+            <i class="fas fa-user-shield"></i>
+            <h4>Authentication</h4>
+            <p style="font-size:0.9rem; color:var(--muted); margin-top:8px;">OAuth, Google Sign-In, SMS OTP & email password loops.</p>
+          </div>
+          <div class="tag-card">
+            <i class="fas fa-folder-open"></i>
+            <h4>Cloud Firestore</h4>
+            <p style="font-size:0.9rem; color:var(--muted); margin-top:8px;">Real-time NoSQL syncing across global clients instantly.</p>
+          </div>
+          <div class="tag-card">
+            <i class="fas fa-bell"></i>
+            <h4>Cloud Messaging</h4>
+            <p style="font-size:0.9rem; color:var(--muted); margin-top:8px;">Instant, targeted push notifications to increase user retention.</p>
+          </div>
+        </div>
 
-<h2>Firebase Services Used in Android</h2>
-<ul>
-<li>Firebase Authentication</li>
-<li>Firestore Database</li>
-<li>Firebase Cloud Messaging</li>
-<li>Analytics</li>
-</ul>
+        <h2>Why Choose Firebase Integration?</h2>
+        <ul style="color: rgba(255,255,255,0.8); line-height: 2; font-size: 1.05rem; padding-left: 20px; margin-bottom: 30px;">
+          <li>Serverless infrastructure eliminates costly host configuration.</li>
+          <li>Real-time sync gives dynamic, live updates instantly.</li>
+          <li>Deep integration with Android SDK keeps applications highly responsive.</li>
+          <li>Actionable metrics & crash analysis help scale products effectively.</li>
+        </ul>
 
-<p>
-This guide is written by Shivam Kumar, freelance Android developer.
-</p>
+        <div class="flip-3d" style="margin-top: 32px;">
+          <div class="flip-3d-inner">
+            <a href="index.html#Get-In-Touch" class="btn btn-primary">Integrate Firebase Now →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal-text').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
