@@ -5,8 +5,8 @@
 (function () {
   // Configuration: Update these with your active EmailJS values to receive emails directly!
   const EMAILJS_CONFIG = {
-    serviceId: "service_default",   // Update this with your EmailJS Service ID (e.g., "service_xxxxxx")
-    templateId: "template_default"  // Update this with your EmailJS Template ID (e.g., "template_xxxxxx")
+    serviceId: "service_i597mpn",   // Update this with your EmailJS Service ID (e.g., "service_xxxxxx")
+    templateId: "template_aevjqco"  // Update this with your EmailJS Template ID (e.g., "template_xxxxxx")
   };
 
   // Base64 keys for security (Phase 1)
@@ -208,7 +208,7 @@
 
     contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      
+
       // Honeypot anti-spam check (Phase 1)
       const honeypot = contactForm.querySelector('input[name="website_url"]');
       if (honeypot && honeypot.value !== '') {
@@ -235,7 +235,7 @@
         try {
           // Send form via EmailJS safely (using active service/template bindings)
           await emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, contactForm);
-          
+
           if (successMsg) {
             successMsg.style.color = 'var(--cyan)';
             successMsg.textContent = "Thanks — I will respond within 24 hours.";
