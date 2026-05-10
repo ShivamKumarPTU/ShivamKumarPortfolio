@@ -1110,13 +1110,6 @@
       if (heroTitle) {
         if (typeof SplitType !== 'undefined') {
           const split = new SplitType(heroTitle, { types: 'chars,words' });
-          gsap.set(split.chars, {
-            display: "inline-block",
-            webkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            webkitBackgroundClip: "text",
-            backgroundImage: "inherit"
-          });
           gsap.from(split.chars, {
             y: 40,
             opacity: 0,

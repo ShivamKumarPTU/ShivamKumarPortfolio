@@ -481,7 +481,8 @@ section {
   background-position: 100% 0%;
   -webkit-background-clip: text;
   background-clip: text;
-  color: #fff;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
   will-change: background-position, transform, opacity;
   display: block;
 }
@@ -489,10 +490,18 @@ section {
 .hero-title .char {
   display: inline-block;
   will-change: transform, opacity;
-  color: inherit;
-  background: inherit;
+  background: linear-gradient(
+    90deg,
+    #00E0FF 0%,
+    #FF00E5 50%,
+    #00ADB5 100%
+  );
+  background-size: 200% auto;
+  background-position: 100% 0%;
   -webkit-background-clip: text;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .chip-frosted {
