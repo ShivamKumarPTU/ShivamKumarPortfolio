@@ -6,6 +6,12 @@
   // Safe plugin registration
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
+    // Batch callbacks, don't recalculate on every trigger init
+    ScrollTrigger.config({
+      limitCallbacks: true,
+      syncInterval: 40,        // only sync every 40ms instead of every frame
+      ignoreMobileResize: true
+    });
   }
 
   // Hero Title Lighting effects
@@ -58,23 +64,31 @@
     if (heroTitle) {
       initHeroTitleTyping();
 
-      // ScrollTrigger-based sweep (Scrubs lighting background position)
-      if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-        gsap.to(heroTitle, {
-          backgroundPosition: '0% 0%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroTitle,
-            start: 'top 70%',
-            end: 'bottom 20%',
-            scrub: true
-          }
-        });
-      }
+      // Interactive mouse hover lighting tracker - Optimized to prevent layout thrashing
+      let rect = null;
+      let isHovering = false;
+      let resizeTimer;
+      
+      const updateRect = () => {
+        if (heroTitle) {
+          rect = heroTitle.getBoundingClientRect();
+        }
+      };
 
-      // Interactive mouse hover lighting tracker
+      // Debounce resize updates to avoid layout thrashing
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(updateRect, 250);
+      }, { passive: true });
+
+      heroTitle.addEventListener('mouseenter', () => {
+        isHovering = true;
+        updateRect(); // Update specifically on hover enter
+      }, { passive: true });
+
       heroTitle.addEventListener('mousemove', (e) => {
-        const rect = heroTitle.getBoundingClientRect();
+        if (!isHovering || !rect) return;
+        // Avoid forcing reflow inside mousemove loop
         const x = ((e.clientX - rect.left) / rect.width) * 100;
         gsap.to(heroTitle, {
           backgroundPosition: `${x}% 0%`,
@@ -82,17 +96,18 @@
           ease: 'power2.out',
           overwrite: 'auto'
         });
-      });
+      }, { passive: true });
 
       // Smoothly restore position on mouse leave
       heroTitle.addEventListener('mouseleave', () => {
+        isHovering = false;
         gsap.to(heroTitle, {
           backgroundPosition: '0% 0%',
           duration: 0.8,
           ease: 'power2.out',
           overwrite: 'auto'
         });
-      });
+      }, { passive: true });
     }
   }
 
@@ -206,47 +221,35 @@
         }
       });
     });
-
-    // High performance general opacity/translate reveals for paragraphs/testimonial cards
-    const fadeElements = document.querySelectorAll('.about-text p, .tech-grid .glass-card h3, .glass-card h4, .tech-grid .glass-card p, .testimonial-text');
-    fadeElements.forEach(el => {
-      if (el.classList.contains('reveal-done')) return;
-      el.classList.add('reveal-done');
-
-      const triggerEl = el.closest('.glass-card') || el.closest('.about-text') || el;
-
-      gsap.from(el, {
-        opacity: 0,
-        y: 15,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: triggerEl,
-          start: 'top 92%',
-          toggleActions: 'play none none none'
-        }
-      });
-    });
   }
 
   // Stagger lists entry
   function initFeaturedLists() {
     if (typeof gsap === 'undefined') return;
 
-    const lists = document.querySelectorAll('.tech-list');
-    lists.forEach(list => {
+    // Collect ALL lists first (one layout read), then register (no reads)
+    const allGroups = [];
+    document.querySelectorAll('.tech-list').forEach(list => {
       const items = list.querySelectorAll('li');
       const card = list.closest('.glass-card') || list;
-      gsap.from(items, {
-        opacity: 0,
-        x: -15,
-        stagger: 0.08,
-        duration: 0.6,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 90%',
-          toggleActions: 'play none none none'
+      allGroups.push({ items, card });
+    });
+
+    // Now register ScrollTriggers — no layout reads inside
+    allGroups.forEach(({ items, card }) => {
+      gsap.set(items, { opacity: 0, x: -15 });
+      ScrollTrigger.create({
+        trigger: card,
+        start: 'top 90%',
+        once: true,
+        onEnter: () => {
+          gsap.to(items, {
+            opacity: 1,
+            x: 0,
+            stagger: 0.08,
+            duration: 0.6,
+            ease: 'power2.out'
+          });
         }
       });
     });
@@ -310,72 +313,37 @@
     });
   }
 
-  // Service grid card entrance timelines (GPU bound)
+  // Service grid card entrance timelines (Handled cleanly in CSS + IntersectionObserver)
   function initServicesAnimations() {
-    if (typeof gsap === 'undefined') return;
-
-    const cards = document.querySelectorAll('.services-grid .glass-card');
-    if (!cards.length) return;
-
-    cards.forEach((card) => {
-      gsap.set(card, { opacity: 0, y: 40 });
-
-      const h3 = card.querySelector('h3');
-      const p = card.querySelector('p');
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 85%',
-          toggleActions: 'play none none none'
-        }
-      });
-
-      tl.to(card, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-
-      if (h3) {
-        tl.from(h3, {
-          opacity: 0,
-          y: 10,
-          duration: 0.5,
-          ease: 'power2.out'
-        }, '-=0.4');
-      }
-
-      if (p) {
-        tl.from(p, {
-          opacity: 0,
-          y: 10,
-          duration: 0.5,
-          ease: 'power2.out'
-        }, '-=0.3');
-      }
-    });
+    // No-op: Service cards entry anim is now managed via CSS + our high performance IntersectionObserver inside initGeneralReveals()
   }
 
-  // General element reveals
+  // General element reveals (Optimized via single-pass native IntersectionObserver)
   function initGeneralReveals() {
-    if (typeof gsap === 'undefined') return;
-
-    const reveals = document.querySelectorAll('.reveal-text:not(.split-done)');
-    reveals.forEach(el => {
-      gsap.to(el, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: el,
-          start: 'top 90%',
-          toggleActions: 'play none none none'
-        }
-      });
+    const extraReveals = document.querySelectorAll(
+      '.about-text p, .tech-grid .glass-card h3, .glass-card h4, .tech-grid .glass-card p, .testimonial-text'
+    );
+    extraReveals.forEach(el => {
+      if (!el.classList.contains('reveal-text')) el.classList.add('reveal-text');
     });
+
+    // Use ScrollTrigger.batch — single reflow for all elements, not one per element
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      ScrollTrigger.batch('.reveal-text, .services-grid .glass-card', {
+        onEnter: batch => {
+          gsap.to(batch, {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            stagger: 0.08,
+            overwrite: true
+          });
+        },
+        start: 'top 90%',
+        once: true  // unregisters after firing — no ongoing scroll cost
+      });
+    }
   }
 
   // More Projects toggle trigger
@@ -386,14 +354,14 @@
     let showingMore = false;
     moreProjectsBtn.addEventListener('click', () => {
       const hiddenProjects = document.querySelectorAll('.portfolio-grid .hidden-project');
-      
+
       if (!showingMore) {
         showingMore = true;
         moreProjectsBtn.innerHTML = 'Hide Projects ←';
-        
+
         hiddenProjects.forEach(proj => {
           proj.style.display = ''; // Removes display: none
-          
+
           if (typeof gsap !== 'undefined') {
             gsap.set(proj, { opacity: 0, y: 35 });
             gsap.to(proj, {
@@ -415,7 +383,7 @@
       } else {
         showingMore = false;
         moreProjectsBtn.innerHTML = 'More Projects →';
-        
+
         if (typeof gsap !== 'undefined') {
           gsap.to(hiddenProjects, {
             opacity: 0,
@@ -431,7 +399,7 @@
                   video.currentTime = 0;
                 }
               });
-              
+
               // Scroll gracefully back to `#portfolio` start using Lenis if active
               if (window.lenis) {
                 window.lenis.scrollTo('#portfolio', { offset: -72, duration: 1 });
@@ -544,16 +512,31 @@
     if (window.animationsInitialized) return;
     window.animationsInitialized = true;
 
+    // Run non-layout work immediately
     initHeroText();
-    initGeneralReveals();
-    initHeadlinesScramble();
-    initServicesAnimations();
-    initSplitTextParagraphs();
-    initFeaturedLists();
-    initVideoModal();
-    initMoreProjects();
+    if (typeof initMobileMenu === 'function') initMobileMenu();
     initFaqAccordion();
     initPortfolioVideos();
+    initMoreProjects();
+    initVideoModal();
+
+    // Defer ALL ScrollTrigger work to after first paint
+    // This prevents the forced reflow during initial load
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        // All layout reads happen here, after paint is done
+        initGeneralReveals();
+        initHeadlinesScramble();
+        initServicesAnimations();
+        initSplitTextParagraphs();
+        initFeaturedLists();
+
+        // Single refresh after everything is registered
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      }, 100);
+    });
   };
 
   // Safe DOM ready triggers

@@ -11,14 +11,17 @@
     if (preloader) {
       preloader.style.display = 'none';
     }
-    document.documentElement.style.overflow = '';
-    document.body.style.overflow = 'auto';
     
     // Safety check to trigger animations after load
     window.addEventListener('load', () => {
       if (typeof initAllAnimations === 'function') {
         initAllAnimations();
       }
+      setTimeout(() => {
+        if (typeof ScrollTrigger !== 'undefined') {
+          ScrollTrigger.refresh();
+        }
+      }, 100);
     });
     return;
   }
@@ -55,7 +58,6 @@
       } else {
         const preloader = document.getElementById('preloader');
         if (preloader) preloader.style.display = 'none';
-        document.body.style.overflow = 'auto';
       }
     }, 250);
   });
@@ -66,7 +68,6 @@
     const preloader = document.getElementById('preloader');
     if (preloader && preloader.style.display !== 'none') {
       preloader.style.display = 'none';
-      document.body.style.overflow = 'auto';
       if (typeof initAllAnimations === 'function') {
         initAllAnimations();
       }

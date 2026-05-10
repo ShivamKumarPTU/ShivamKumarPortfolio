@@ -152,47 +152,43 @@
     if (typeof Lenis === 'undefined') return;
 
     const lenis = new Lenis({
-      duration: 0.8,
+      duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
       smooth: true,
-      mouseMultiplier: 1.8,
-      wheelMultiplier: 1.8,
+      wheelMultiplier: 1.0,
       smoothTouch: false,
-      touchMultiplier: 2.0,
-      infinite: false,
+      touchMultiplier: 1.5,
+      // Prevents Lenis from triggering layout on every resize event
+      autoRaf: false
     });
 
-    // High performance ticker synchronization
     if (typeof ScrollTrigger !== 'undefined' && typeof gsap !== 'undefined') {
       lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => {
-        lenis.raf(time * 1000);
-      });
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
       gsap.ticker.lagSmoothing(0);
     } else {
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
+      function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
       requestAnimationFrame(raf);
     }
 
-    // Scroll to Anchor Link integration
-    document.querySelectorAll('.nav-links a, .btn-ghost, .btn-primary').forEach(anchor => {
+    // Debounce resize so layout isn't recalculated on every pixel of resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        lenis.resize();
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+      }, 250);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
-        if (href && href.startsWith('#') && href.length > 1) {
-          const target = document.querySelector(href);
-          if (target) {
-            e.preventDefault();
-            lenis.scrollTo(target, {
-              offset: -72,
-              duration: 0.8,
-              easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
-            });
-          }
+        if (href.length <= 1) return;
+        const target = document.querySelector(href);
+        if (target) {
+          e.preventDefault();
+          lenis.scrollTo(target, { offset: -72, duration: 1.2 });
         }
       });
     });
@@ -233,8 +229,27 @@
 
       if (typeof emailjs !== 'undefined') {
         try {
-          // Send form via EmailJS safely (using active service/template bindings)
-          await emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, contactForm);
+          // Collect form values securely and map them to all common template keys to prevent dashboard fallbacks (Phase 1)
+          const rawName = contactForm.querySelector('#name').value || "";
+          const rawEmail = contactForm.querySelector('#email').value || "";
+          const rawProjectType = contactForm.querySelector('#projectType').value || "";
+          const rawBudgetRange = contactForm.querySelector('#budget').value || "";
+          const rawMessage = contactForm.querySelector('#message').value || "";
+
+          const templateParams = {
+            // Support both custom template placeholders and default EmailJS dashboard keys to avoid "PriyaSharma" fallback
+            name: rawName,
+            from_name: rawName,
+            email: rawEmail,
+            from_email: rawEmail,
+            reply_to: rawEmail,
+            project_type: rawProjectType,
+            budget_range: rawBudgetRange,
+            message: rawMessage
+          };
+
+          // Send template parameters via EmailJS safely (using active service/template bindings)
+          await emailjs.send(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, templateParams);
 
           if (successMsg) {
             successMsg.style.color = 'var(--cyan)';
@@ -276,35 +291,28 @@
 
     if (typeof gsap !== 'undefined') {
       const tl = gsap.timeline();
-      tl.to(".loader-content", {
-        opacity: 0,
-        y: -40,
-        duration: 0.6,
-        ease: "power3.in"
-      })
+      tl.to(".loader-content", { opacity: 0, y: -40, duration: 0.6, ease: "power3.in" })
         .to("#preloader", {
           y: "-100%",
           duration: 0.8,
           ease: "expo.inOut",
           onStart: () => {
-            if (typeof initAllAnimations === 'function') {
-              initAllAnimations();
-            }
+            if (typeof initAllAnimations === 'function') initAllAnimations();
           },
           onComplete: () => {
             const preloader = document.getElementById('preloader');
             if (preloader) preloader.style.display = 'none';
-            document.documentElement.style.overflow = '';
-            document.body.style.overflow = 'auto';
+            // ✅ Don't set body overflow here — Lenis owns it
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
           }
         });
     } else {
       const preloader = document.getElementById('preloader');
       if (preloader) preloader.style.display = 'none';
-      document.body.style.overflow = 'auto';
       if (typeof initAllAnimations === 'function') {
         initAllAnimations();
       }
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
     }
   };
 
