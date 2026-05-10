@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shivamkumarptu.github.io/ShivamKumarPortfolio/sitemap.xml
+Sitemap: https://shivam-app-studio.vercel.app/sitemap.xml

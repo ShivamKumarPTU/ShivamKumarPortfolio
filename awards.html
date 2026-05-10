@@ -8,9 +8,9 @@
   <meta name="keywords" content="Shivam Kumar awards, Shivam Kumar honors, Smart India Hackathon winner, academic scholarship, Android developer India">
   <meta name="author" content="Shivam Kumar">
   <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://shivamkumarptu.github.io/ShivamKumarPortfolio/awards.html">
-  <link rel="icon" type="image/jpeg" href="assets/logo1.jpeg">
-  <link rel="stylesheet" href="style.css">
+  <link rel="canonical" href="https://shivam-app-studio.vercel.app/awards.html">
+  <link rel="icon" type="image/jpeg" href="/assets/logo1.jpeg">
+  <link rel="stylesheet" href="/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
@@ -154,7 +154,7 @@
       flex-grow: 1;
     }
     
-    .date-tag {
+    .date-tag, .award-date, .award-year, .award-tag {
       display: inline-block;
       margin-top: 18px;
       font-size: 0.8rem;
@@ -289,11 +289,62 @@
 <body>
   <!-- Global Fixed Background Video -->
   <video class="global-video-bg" autoplay muted loop playsinline preload="auto">
-    <source src="assets/hero1.mp4" type="video/mp4">
+    <source src="/assets/hero1.mp4" type="video/mp4">
   </video>
   <div class="global-video-overlay"></div>
 
-  <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  <!-- header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo flip-3d">
+          <div class="flip-3d-inner">
+            <a href="/">
+              <img src="/assets/logo1.jpeg" alt="mShivam Logo" class="logo-img">
+            </a>
+          </div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="/">Home</a></div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="/#about">About</a></div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="/#services">Services</a></div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="/#portfolio">Portfolio</a></div>
+          </li>
+          <li class="dropdown">
+            <div class="flip-3d">
+              <div class="flip-3d-inner"><a href="/awards.html">Awards & Honors <i class="fas fa-chevron-down" style="font-size:0.8rem"></i></a></div>
+            </div>
+            <div class="dropdown-content">
+              <a href="/awards.html#certificated">Certificate</a>
+              <a href="/awards.html#scholarship">Scholarship</a>
+              <a href="/awards.html#hackathon">Hackathon</a>
+              <a href="/awards.html#internship">Internship</a>
+            </div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="/#Get-In-Touch">Contact</a></div>
+          </li>
+        </ul>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="flip-3d">
+            <div class="flip-3d-inner">
+              <a class="btn btn-ghost" href="/#Get-In-Touch">Request Access</a>
+            </div>
+          </div>
+          <div class="mobile-toggle" id="mobileToggle" style="display:none; cursor:pointer; color:#fff; font-size:24px;"><i class="fas fa-bars"></i></div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <a href="/" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
   <div class="awards-container">
     <div class="container">
@@ -310,7 +361,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.1s;">
             <div class="award-image-container" onclick="openLightbox(0)">
               <div class="award-icon-badge"><i class="fas fa-scroll"></i></div>
-              <img src="assets/Certificates/Semester4.jpeg" alt="Semester 4 Marksheet" class="award-image">
+              <img src="/assets/Certificates/Semester4.jpeg" alt="Semester 4 Marksheet" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Semester 4 Marksheet</h3>
@@ -321,7 +372,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.2s;">
             <div class="award-image-container" onclick="openLightbox(1)">
               <div class="award-icon-badge"><i class="fas fa-scroll"></i></div>
-              <img src="assets/Certificates/Semester3.jpeg" alt="Semester 3 Marksheet" class="award-image">
+              <img src="/assets/Certificates/Semester3.jpeg" alt="Semester 3 Marksheet" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Semester 3 Marksheet</h3>
@@ -332,18 +383,18 @@
           <div class="award-card reveal-text" style="transition-delay: 0.3s;">
             <div class="award-image-container" onclick="openLightbox(2)">
               <div class="award-icon-badge"><i class="fas fa-scroll"></i></div>
-              <img src="assets/Certificates/Semester2.jpeg" alt="Semester 2 Marksheet" class="award-image">
+              <img src="/assets/Certificates/Semester2.jpeg" alt="Semester 2 Marksheet" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Semester 2 Marksheet</h3>
-         
+          
             <span class="date-tag">Issued: 2024</span>
           </div>
 
           <div class="award-card reveal-text" style="transition-delay: 0.4s;">
             <div class="award-image-container" onclick="openLightbox(3)">
               <div class="award-icon-badge"><i class="fas fa-scroll"></i></div>
-              <img src="assets/Certificates/Semester1.jpeg" alt="Semester 1 Marksheet" class="award-image">
+              <img src="/assets/Certificates/Semester1.jpeg" alt="Semester 1 Marksheet" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Semester 1 Marksheet</h3>
@@ -354,18 +405,18 @@
           <div class="award-card reveal-text" style="transition-delay: 0.5s;">
             <div class="award-image-container" onclick="openLightbox(4)">
               <div class="award-icon-badge"><i class="fas fa-file-invoice"></i></div>
-              <img src="assets/Certificates/12th.jpeg" alt="12th Grade Board Certificate" class="award-image">
+              <img src="/assets/Certificates/12th.jpeg" alt="12th Grade Board Certificate" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>12th Grade Board Certificate</h3>
-         
+          
             <span class="date-tag">Issued: 2022</span>
           </div>
 
           <div class="award-card reveal-text" style="transition-delay: 0.6s;">
             <div class="award-image-container" onclick="openLightbox(5)">
               <div class="award-icon-badge"><i class="fas fa-file-invoice"></i></div>
-              <img src="assets/Certificates/10th.jpeg" alt="10th Grade Board Certificate" class="award-image">
+              <img src="/assets/Certificates/10th.jpeg" alt="10th Grade Board Certificate" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>10th Grade Board Certificate</h3>
@@ -384,7 +435,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.1s;">
             <div class="award-image-container" onclick="openLightbox(6)">
               <div class="award-icon-badge"><i class="fas fa-award"></i></div>
-              <img src="assets/Scholarship/WhatsApp Image 2026-05-09 at 15.33.51.jpeg" alt="Bihar Student Credit Card Approval" class="award-image">
+              <img src="/assets/Scholarship/WhatsApp Image 2026-05-09 at 15.33.51.jpeg" alt="Bihar Student Credit Card Approval" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Harihara Subramanian Scholarship</h3>
@@ -395,7 +446,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.2s;">
             <div class="award-image-container" onclick="openLightbox(7)">
               <div class="award-icon-badge"><i class="fas fa-graduation-cap"></i></div>
-              <img src="assets/Scholarship/WhatsApp Image 2026-05-09 at 15.33.37.jpeg" alt="Academic Merit Scholarship Grant" class="award-image">
+              <img src="/assets/Scholarship/WhatsApp Image 2026-05-09 at 15.33.37.jpeg" alt="Academic Merit Scholarship Grant" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Harihara Subramanian Scholarship</h3>
@@ -414,7 +465,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.1s;">
             <div class="award-image-container" onclick="openLightbox(8)">
               <div class="award-icon-badge"><i class="fas fa-trophy"></i></div>
-              <img src="assets/Hackathon/WhatsApp Image 2026-05-03 at 16.04.54.jpeg" alt="SIH Winner Trophy" class="award-image">
+              <img src="/assets/Hackathon/WhatsApp Image 2026-05-03 at 16.04.54.jpeg" alt="SIH Winner Trophy" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Puduvai Innovation Competition 2026</h3>
@@ -425,7 +476,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.2s;">
             <div class="award-image-container" onclick="openLightbox(9)">
               <div class="award-icon-badge"><i class="fas fa-users"></i></div>
-              <img src="assets/Hackathon/WhatsApp Image 2026-05-03 at 16.05.00.jpeg" alt="SIH Winning Team" class="award-image">
+              <img src="/assets/Hackathon/WhatsApp Image 2026-05-03 at 16.05.00.jpeg" alt="SIH Winning Team" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Puduvai Innovation Competition 2026</h3>
@@ -436,7 +487,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.3s;">
             <div class="award-image-container" onclick="openLightbox(10)">
               <div class="award-icon-badge"><i class="fas fa-laptop-code"></i></div>
-              <img src="assets/Hackathon/WhatsApp Image 2026-05-03 at 16.05.02.jpeg" alt="SIH Jury Presentation" class="award-image">
+              <img src="/assets/Hackathon/WhatsApp Image 2026-05-03 at 16.05.02.jpeg" alt="SIH Jury Presentation" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>Puduvai Innovation Competition 2026</h3>
@@ -455,7 +506,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.1s;">
             <div class="award-image-container" onclick="openLightbox(11)">
               <div class="award-icon-badge"><i class="fas fa-building"></i></div>
-              <img src="assets/Internship/Nit Surat Summer Internship.png" alt="NIT Surat Summer Internship" class="award-image">
+              <img src="/assets/Internship/Nit Surat Summer Internship.png" alt="NIT Surat Summer Internship" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>NIT Surat Summer Internship</h3>
@@ -466,7 +517,7 @@
           <div class="award-card reveal-text" style="transition-delay: 0.2s;">
             <div class="award-image-container" onclick="openLightbox(12)">
               <div class="award-icon-badge"><i class="fas fa-briefcase"></i></div>
-              <img src="assets/Internship/OneBill Inernship.png" alt="OneBill Internship Certificate" class="award-image">
+              <img src="/assets/Internship/OneBill Inernship.png" alt="OneBill Internship Certificate" class="award-image">
               <div class="award-image-overlay"><i class="fas fa-search-plus"></i></div>
             </div>
             <h3>OneBill Software Intern</h3>

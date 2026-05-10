@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shivam Kumar | Freelance Android Developer India | Business App Expert</title>
+  <meta name="description"
+    content="Official portfolio of Shivam Kumar – freelance Android developer from India specializing in business apps using Kotlin, Jetpack Compose and Firebase.">
+  <meta name="keywords"
+    content="Shivam Kumar, Android Developer India, Freelance Android Developer, Kotlin Developer, Business App Developer">
+  <meta name="author" content="Shivam Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shivamkumarptu.github.io/ShivamKumarPortfolio/">
+  <script type="application/ld+json">
+  {
+   "@context": "https://schema.org",
+   "@type": "Person",
+   "name": "Shivam Kumar",
+   "url": "https://shivamkumarptu.github.io/ShivamKumarPortfolio/",
+   "jobTitle": "Freelance Android Developer",
+   "sameAs": [
+     "https://github.com/shivamkumarptu",
+     "https://www.linkedin.com/in/shivam-kumar-1b1611210/"
+   ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter:wght@300;400;500&family=Fira+Code:wght@600&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/jpeg" href="assets/logo1.jpeg">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+  <!-- Premium Animation Libraries (Loaded via CDN for stability) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+</head>
+
+<body>
+
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="loader-content">
+      <div class="loader-text">Shivam App Studio</div>
+      <div class="loader-percentage" id="loader-percentage">0%</div>
+      <div class="loader-bar-container" style="width: 300px;">
+        <div class="loader-bar" id="loader-bar"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Instant Preloader Start -->
+  <script src="/assets/js/preloader.js"></script>
+
+  <!-- Global Fixed Background Video -->
+  <video class="global-video-bg" autoplay muted loop playsinline preload="auto">
+    <source src="assets/hero1.mp4" type="video/mp4">
+  </video>
+  <div class="global-video-overlay"></div>
+
+  <!-- header -->
+  <header>
+    <div class="container">
+      <nav>
+        <div class="logo flip-3d">
+          <div class="flip-3d-inner">
+            <a href="#home">
+              <img src="assets/logo1.jpeg" alt="mShivam Logo" class="logo-img">
+            </a>
+          </div>
+        </div>
+        <ul class="nav-links" id="navLinks">
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="#home">Home</a></div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="#about">About</a></div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="#services">Services</a></div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="#portfolio">Portfolio</a></div>
+          </li>
+          <li class="dropdown">
+            <div class="flip-3d">
+              <div class="flip-3d-inner"><a href="awards.html">Awards & Honors <i class="fas fa-chevron-down"
+                    style="font-size:0.8rem"></i></a></div>
+            </div>
+            <div class="dropdown-content">
+              <a href="awards.html#certificated">Certificate</a>
+              <a href="awards.html#scholarship">Scholarship</a>
+              <a href="awards.html#hackathon">Hackathon</a>
+              <a href="awards.html#internship">Internship</a>
+            </div>
+          </li>
+          <li class="flip-3d">
+            <div class="flip-3d-inner"><a href="#Get-In-Touch">Contact</a></div>
+          </li>
+        </ul>
+        <div style="display:flex;gap:12px;align-items:center">
+          <div class="flip-3d">
+            <div class="flip-3d-inner">
+              <a class="btn btn-ghost" href="#Get-In-Touch">Request Access</a>
+            </div>
+          </div>
+          <div class="mobile-toggle" id="mobileToggle"
+            style="display:none; cursor:pointer; color:#fff; font-size:24px;"><i class="fas fa-bars"></i></div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+      <div class="container">
+        <div style="max-width:800px; margin: 0 auto; text-align: center;">
+          <h1 class="hero-title" style="text-align: center;"><span id="hero-title-text">Convert Your App Idea into
+              reality</span><span class="hero-title-cursor">|</span></h1>
+        
+
+          <div class="trust-row reveal-text"
+            style="display:flex; justify-content:center; gap:20px; flex-wrap:wrap; transition-delay:0.6s; align-items:center;">
+            <div class="glass-card"
+              style="padding:12px 24px; border-radius:12px; display:flex; align-items:center; gap:12px;">
+              <i class="fas fa-shipping-fast" style="color:var(--blue)"></i><span>Fast delivery</span>
+            </div>
+            <div class="glass-card"
+              style="padding:12px 24px; border-radius:12px; display:flex; align-items:center; gap:12px;">
+              <i class="fas fa-paint-brush" style="color:var(--pink)"></i><span>Clean UI</span>
+            </div>
+            <div class="glass-card"
+              style="padding:12px 24px; border-radius:12px; display:flex; align-items:center; gap:12px;">
+              <i class="fas fa-coins" style="color:var(--cyan)"></i><span>Affordable</span>
+            </div>
+            <!-- Resume Download Button (Caveman style: GRAB RESUME) -->
+            <a href="assets/Resume/Oracle_ShivamKumar_Resume.pdf" download="ShivamKumar_Resume.pdf"
+              class="btn btn-primary resume-btn"
+              style="padding:12px 24px; border-radius:12px; height:48px; display:inline-flex; align-items:center; gap:12px; font-weight:600; margin: 0;">
+              <i class="fas fa-file-download"></i> MY RESUME
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div class="about-text">
+            <h1 class="reveal-text" style="font-size: 3.5rem; font-family: 'Poppins'; margin-bottom: 30px;">Hi, I'm
+              <span style="color: var(--blue); font-style: italic;">Shivam Kumar</span>
+            </h1>
+            <p class="reveal-text"
+              style="font-size: 1.4rem; color: var(--slate); margin-bottom: 24px; line-height: 1.4; font-family: 'Poppins', sans-serif; font-weight: 600; min-height: 48px;">
+              <span id="typing-prefix" style="color: var(--slate);">I am a </span><span id="typing-text"
+                style="color: var(--blue);"></span><span class="typing-cursor">|</span>
+            </p>
+            <p class="reveal-text" style="font-size: 1.1rem; color: var(--muted); line-height: 1.6;">Specializing in
+              <span style="color: var(--blue); font-weight: 600;">Kotlin</span>, <span
+                style="color: var(--blue); font-weight: 600;">Jetpack Compose</span> and <span
+                style="color: var(--blue); font-weight: 600;">Firebase</span>-based solutions — I help startups,
+              businesses, and individuals turn ideas into production-ready apps.
+            </p>
+          </div>
+          <div class="about-stats reveal-text" style="transition-delay: 0.3s;">
+            <div class="stats-grid">
+              <div class="glass-card stat-card">
+                <h2 style="color: var(--pink);">4+</h2>
+                <p>Real Projects</p>
+              </div>
+              <div class="glass-card stat-card">
+                <h2 style="color: var(--blue);">3+</h2>
+                <p>Years Coding</p>
+              </div>
+              <div class="glass-card stat-card">
+                <h2 style="color: var(--cyan);">6</h2>
+                <p>Services</p>
+              </div>
+              <div class="glass-card stat-card">
+                <h2 style="color: var(--blue);">∞</h2>
+                <p>Curiosity</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Availability Bar -->
+    <section class="availability-bar">
+      <div class="availability-track">
+        <div class="platform"
+          style="display: flex; align-items: center; gap: 40px; padding: 0 40px; white-space: nowrap;">
+          <span style="color: var(--muted);">Available on:</span>
+          <a href="https://www.upwork.com/freelancers/~01a7f6e1e8c8b0b3c9" target="_blank"><i
+              class="fab fa-fonticons-fi" style="color: #14a800;"></i> Upwork</a>
+          <a href="https://www.fiverr.com/shivamkumar_android" target="_blank"><i class="fab fa-fonticons"
+              style="color: #1dbf73;"></i> Fiverr</a>
+          <a href="https://www.freelancer.in/u/shivamkumarptu" target="_blank"><i class="fas fa-briefcase"
+              style="color: #29b2fe;"></i> Freelancer</a>
+          <a href="https://www.linkedin.com/in/shivam-kumar-1b1611210/" target="_blank"><i class="fab fa-linkedin"
+              style="color: #0a66c2;"></i> LinkedIn</a>
+          <a href="https://www.facebook.com/shivamkumarptu" target="_blank"><i class="fab fa-facebook"
+              style="color: #1877F2;"></i> Facebook</a>
+          <a href="https://www.upwork.com/freelancers/~01941cb77c15cea6ac" target="_blank"><i
+              class="fab fa-fonticons-fi" style="color: #14a800;"></i> Upwork (Alt)</a>
+        </div>
+        <div class="platform"
+          style="display: flex; align-items: center; gap: 40px; padding: 0 40px; white-space: nowrap;">
+          <span style="color: var(--muted);">Available on:</span>
+          <a href="https://www.upwork.com/freelancers/~01a7f6e1e8c8b0b3c9" target="_blank"><i
+              class="fab fa-fonticons-fi" style="color: #14a800;"></i> Upwork</a>
+          <a href="https://www.fiverr.com/shivamkumar_android" target="_blank"><i class="fab fa-fonticons"
+              style="color: #1dbf73;"></i> Fiverr</a>
+          <a href="https://www.freelancer.in/u/shivamkumarptu" target="_blank"><i class="fas fa-briefcase"
+              style="color: #29b2fe;"></i> Freelancer</a>
+          <a href="https://www.linkedin.com/in/shivam-kumar-1b1611210/" target="_blank"><i class="fab fa-linkedin"
+              style="color: #0a66c2;"></i> LinkedIn</a>
+          <a href="https://www.facebook.com/shivamkumarptu" target="_blank"><i class="fab fa-facebook"
+              style="color: #1877F2;"></i> Facebook</a>
+          <a href="https://www.upwork.com/freelancers/~01941cb77c15cea6ac" target="_blank"><i
+              class="fab fa-fonticons-fi" style="color: #14a800;"></i> Upwork (Alt)</a>
+        </div>
+        <div class="platform"
+          style="display: flex; align-items: center; gap: 40px; padding: 0 40px; white-space: nowrap;">
+          <span style="color: var(--muted);">Available on:</span>
+          <a href="https://www.upwork.com/freelancers/~01a7f6e1e8c8b0b3c9" target="_blank"><i
+              class="fab fa-fonticons-fi" style="color: #14a800;"></i> Upwork</a>
+          <a href="https://www.fiverr.com/shivamkumar_android" target="_blank"><i class="fab fa-fonticons"
+              style="color: #1dbf73;"></i> Fiverr</a>
+          <a href="https://www.freelancer.in/u/shivamkumarptu" target="_blank"><i class="fas fa-briefcase"
+              style="color: #29b2fe;"></i> Freelancer</a>
+          <a href="https://www.linkedin.com/in/shivam-kumar-1b1611210/" target="_blank"><i class="fab fa-linkedin"
+              style="color: #0a66c2;"></i> LinkedIn</a>
+          <a href="https://www.facebook.com/shivamkumarptu" target="_blank"><i class="fab fa-facebook"
+              style="color: #1877F2;"></i> Facebook</a>
+          <a href="https://www.upwork.com/freelancers/~01941cb77c15cea6ac" target="_blank"><i
+              class="fab fa-fonticons-fi" style="color: #14a800;"></i> Upwork (Alt)</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+      <div class="container">
+        <div class="section-header reveal-text">
+          <h2>Portfolio</h2>
+
+        </div>
+
+        <div class="portfolio-grid">
+          <!-- Main Row: All three 9:16 Portrait Videos side-by-side -->
+          <div class="portfolio-card card-portrait reveal-text">
+            <video class="portfolio-video" muted loop playsinline preload="metadata">
+              <source src="assets/Projects/Full Screen Timer App.mp4" type="video/mp4">
+            </video>
+            <div class="portfolio-gradient-overlay"></div>
+            <div class="portfolio-card-bottom">
+              <h3 class="portfolio-card-title">Full Screen Timer App</h3>
+              <div class="portfolio-cta-container">
+                <a href="https://github.com/ShivamKumarPTU/Full_Screen_Timer" class="btn-compact-porsche"
+                  target="_blank" onclick="event.stopPropagation();">GitHub Link →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-card card-portrait reveal-text" style="transition-delay:0.1s">
+            <video class="portfolio-video" muted loop playsinline preload="metadata">
+              <source src="assets/Projects/FinalVoiceAnalyserDemoVideo.mp4" type="video/mp4">
+            </video>
+            <div class="portfolio-gradient-overlay"></div>
+            <div class="portfolio-card-bottom">
+              <h3 class="portfolio-card-title">VoxAnalyzer — AI Voice Emotion</h3>
+              <div class="portfolio-cta-container">
+                <a href="https://github.com/ShivamKumarPTU/VoxAnalyzer" class="btn-compact-porsche" target="_blank"
+                  onclick="event.stopPropagation();">GitHub Link →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-card card-portrait reveal-text" style="transition-delay:0.2s">
+            <video class="portfolio-video" muted loop playsinline preload="metadata">
+              <source src="assets/Projects/GeofenceTrackerCompressed.mp4" type="video/mp4">
+            </video>
+            <div class="portfolio-gradient-overlay"></div>
+            <div class="portfolio-card-bottom">
+              <h3 class="portfolio-card-title">GeoFence Tracker — Child Safety</h3>
+              <div class="portfolio-cta-container">
+                <a href="https://github.com/ShivamKumarPTU/GeoFence-Tracker" class="btn-compact-porsche" target="_blank"
+                  onclick="event.stopPropagation();">GitHub Link →</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- More Projects Section (Initially Hidden): Two 16:9 Landscape Videos -->
+          <div class="portfolio-card card-landscape hidden-project reveal-text" style="display:none;">
+            <video class="portfolio-video" muted loop playsinline preload="metadata">
+              <source src="assets/Projects/GramDOC AI.mp4" type="video/mp4">
+            </video>
+            <div class="portfolio-gradient-overlay"></div>
+            <div class="portfolio-card-bottom">
+              <h3 class="portfolio-card-title">GramDOC AI — Document Analyzer</h3>
+              <div class="portfolio-cta-container">
+                <a href="https://github.com/ShivamKumarPTU/GramDoc" class="btn-compact-porsche" target="_blank"
+                  onclick="event.stopPropagation();">GitHub Link →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="portfolio-card card-landscape hidden-project reveal-text" style="display:none;">
+            <video class="portfolio-video" muted loop playsinline preload="metadata">
+              <source src="assets/Projects/NightVaultLandingPage.mp4" type="video/mp4">
+            </video>
+            <div class="portfolio-gradient-overlay"></div>
+            <div class="portfolio-card-bottom">
+              <h3 class="portfolio-card-title">NightLibrary — Secure Media Vault</h3>
+              <div class="portfolio-cta-container">
+                <a href="https://github.com/ShivamKumarPTU/NightLibrary" class="btn-compact-porsche" target="_blank"
+                  onclick="event.stopPropagation();">GitHub Link →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="text-align:center; margin-top:60px;">
+          <div class="flip-3d">
+            <div class="flip-3d-inner">
+              <button id="moreProjectsBtn" class="btn btn-primary">More Projects →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+      <div class="container">
+        <div class="section-header reveal-text">
+          <h2>Services Offered</h2>
+
+        </div>
+
+        <div class="services-grid">
+          <div class="glass-card">
+            <i class="fas fa-mobile-alt service-icon"></i>
+            <h3>Custom Android App Development</h3>
+            <p>Full-cycle Android app development using Kotlin and Firebase with fast UI and scalable backend.</p>
+            <div class="flip-3d">
+              <div class="flip-3d-inner">
+                <a href="#Get-In-Touch" class="btn btn-ghost" style="margin-top:16px;">Get a Quote →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <i class="fas fa-tools service-icon"></i>
+            <h3>App Maintenance & Optimization</h3>
+            <p>Improve app performance, fix bugs, and enhance user experience.</p>
+            <div class="flip-3d">
+              <div class="flip-3d-inner">
+                <a href="#Get-In-Touch" class="btn btn-ghost" style="margin-top:16px;">Upgrade My App →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <i class="fas fa-cloud service-icon"></i>
+            <h3>Firebase Integration</h3>
+            <p>Set up Authentication, Firestore, Analytics, and Push Notifications.</p>
+            <div class="flip-3d">
+              <div class="flip-3d-inner">
+                <a href="#Get-In-Touch" class="btn btn-ghost" style="margin-top:16px;">Setup Firebase →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <i class="fas fa-pencil-ruler service-icon"></i>
+            <h3>UI/UX to App Conversion</h3>
+            <p>Convert your design (Figma/Adobe XD) into a working Kotlin app.</p>
+            <div class="flip-3d">
+              <div class="flip-3d-inner">
+                <a href="#Get-In-Touch" class="btn btn-ghost" style="margin-top:16px;">Start Project →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <i class="fas fa-robot service-icon"></i>
+            <h3>AI-Powered App Solutions</h3>
+            <p>Integrate intelligent chatbots (OpenAI/Gemini) and smart features like image recognition into your
+              Android app.</p>
+            <div class="flip-3d">
+              <div class="flip-3d-inner">
+                <a href="#Get-In-Touch" class="btn btn-ghost" style="margin-top:16px;">Build Smart →</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card">
+            <i class="fas fa-laptop-code service-icon"></i>
+            <h3>Website Landing Page</h3>
+            <p>High-converting landing pages built with modern frameworks to showcase your apps or business.</p>
+            <div class="flip-3d">
+              <div class="flip-3d-inner">
+                <a href="#Get-In-Touch" class="btn btn-ghost" style="margin-top:16px;">Get a Page →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Section -->
+    <section id="tech-stack">
+      <div class="container">
+        <div class="section-header reveal-text">
+          <h2>Technologies I Work With</h2>
+
+        </div>
+
+        <div class="tech-grid">
+          <div class="glass-card reveal-text">
+            <div class="tech-card-header">
+              <i class="fab fa-android"></i>
+              <h3>Android Development</h3>
+            </div>
+            <ul class="tech-list">
+              <li><span class="tech-dot"></span>Kotlin</li>
+              <li><span class="tech-dot"></span>Java</li>
+              <li><span class="tech-dot"></span>Jetpack Compose</li>
+              <li><span class="tech-dot"></span>MVVM Architecture</li>
+              <li><span class="tech-dot"></span>Room Database</li>
+              <li><span class="tech-dot"></span>Jetpack Libraries</li>
+            </ul>
+          </div>
+
+          <div class="glass-card reveal-text" style="transition-delay:0.1s">
+            <div class="tech-card-header">
+              <i class="fas fa-cloud"></i>
+              <h3>Backend & APIs</h3>
+            </div>
+            <ul class="tech-list">
+              <li><span class="tech-dot"></span>Retrofit</li>
+              <li><span class="tech-dot"></span>REST APIs</li>
+              <li><span class="tech-dot"></span>Firebase Authentication</li>
+              <li><span class="tech-dot"></span>Firestore / Realtime DB</li>
+              <li><span class="tech-dot"></span>Cloud Messaging (FCM)</li>
+            </ul>
+          </div>
+
+          <div class="glass-card reveal-text" style="transition-delay:0.2s">
+            <div class="tech-card-header">
+              <i class="fas fa-tools"></i>
+              <h3>Tools & Technologies</h3>
+            </div>
+            <ul class="tech-list">
+              <li><span class="tech-dot"></span>Android Studio</li>
+              <li><span class="tech-dot"></span>Git & GitHub</li>
+              <li><span class="tech-dot"></span>Postman</li>
+              <li><span class="tech-dot"></span>Figma (UI/UX)</li>
+              <li><span class="tech-dot"></span>Firebase Console</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials">
+      <div class="container">
+        <div class="section-header reveal-text">
+          <h2>Beta Tester Reviews</h2>
+
+        </div>
+
+        <div class="marquee-container reveal-text">
+          <div class="marquee-content">
+            <!-- Testimonial Items (Double for loop) -->
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"The app feels incredibly smooth. Jetpack Compose really makes a difference in
+                UI responsiveness."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">JD</div>
+                <div class="author-info">
+                  <h4>John Doe</h4>
+                  <p>Beta Tester</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"Offline mode works perfectly. I can track my workouts even without internet
+                access."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">SM</div>
+                <div class="author-info">
+                  <h4>Sarah Miller</h4>
+                  <p>Fitness Enthusiast</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"The biometric login is a game changer for security. Very impressive work!"
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">RK</div>
+                <div class="author-info">
+                  <h4>Raj Kumar</h4>
+                  <p>Security Auditor</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"Fast delivery and clean code. Shivam is a pro when it comes to Firebase."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">AL</div>
+                <div class="author-info">
+                  <h4>Alex Lee</h4>
+                  <p>Startup Founder</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"Pixel-perfect UI implementation. It's rare to find a dev who cares this much
+                about design."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">MS</div>
+                <div class="author-info">
+                  <h4>Mark Smith</h4>
+                  <p>Designer</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"The push notifications are instantaneous. FCM setup was handled perfectly."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">VT</div>
+                <div class="author-info">
+                  <h4>Vicky T.</h4>
+                  <p>Beta Tester</p>
+                </div>
+              </div>
+            </div>
+            <!-- Duplicate for loop -->
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"The app feels incredibly smooth. Jetpack Compose really makes a difference in
+                UI responsiveness."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">JD</div>
+                <div class="author-info">
+                  <h4>John Doe</h4>
+                  <p>Beta Tester</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"Offline mode works perfectly. I can track my workouts even without internet
+                access."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">SM</div>
+                <div class="author-info">
+                  <h4>Sarah Miller</h4>
+                  <p>Fitness Enthusiast</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"The biometric login is a game changer for security. Very impressive work!"
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">RK</div>
+                <div class="author-info">
+                  <h4>Raj Kumar</h4>
+                  <p>Security Auditor</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"Fast delivery and clean code. Shivam is a pro when it comes to Firebase."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">AL</div>
+                <div class="author-info">
+                  <h4>Alex Lee</h4>
+                  <p>Startup Founder</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"Pixel-perfect UI implementation. It's rare to find a dev who cares this much
+                about design."</p>
+              <div class="testimonial-author">
+                <div class="author-avatar">MS</div>
+                <div class="author-info">
+                  <h4>Mark Smith</h4>
+                  <p>Designer</p>
+                </div>
+              </div>
+            </div>
+            <div class="marquee-card glass-card">
+              <p class="testimonial-text">"The push notifications are instantaneous. FCM setup was handled perfectly."
+              </p>
+              <div class="testimonial-author">
+                <div class="author-avatar">VT</div>
+                <div class="author-info">
+                  <h4>Vicky T.</h4>
+                  <p>Beta Tester</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+      <div class="container">
+        <div class="section-header faq-header reveal-text">
+          <h2>Frequently Asked</h2>
+        </div>
+        <div class="faq-accordion reveal-text" style="max-width:800px; margin:0 auto;">
+          <div class="faq-item">
+            <button class="faq-question">How long does a typical app take? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer">
+              <p>An MVP typically takes 4–8 weeks depending on complexity. I provide timelines with every quote.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Do you provide ongoing maintenance? <i
+                class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer">
+              <p>Yes — bug fixes, Play Store updates, performance improvements & feature add-ons available.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">How do you price projects? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer">
+              <p>I quote per project based on scope. Use the contact form to share requirements for a clear estimate.
+              </p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Do you sign NDAs? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer">
+              <p>Yes — I can sign NDAs and deliver private repositories on request.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">What tech stack do you recommend? <i class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer">
+              <p>I highly recommend Kotlin with Jetpack Compose for the UI and Firebase for the backend. It's the most
+                efficient and scalable modern approach.</p>
+            </div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-question">Can you publish to my Google Play Store? <i
+                class="fas fa-chevron-down"></i></button>
+            <div class="faq-answer">
+              <p>Absolutely. I handle the entire publishing process, including store listing optimization and internal
+                testing rounds.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="Get-In-Touch">
+      <div class="container">
+        <div class="section-header reveal-text">
+          <h2>Let's talk about your app</h2>
+
+        </div>
+
+        <div class="contact-grid">
+          <div class="glass-card reveal-text">
+            <form id="contactForm">
+              <!-- Honeypot anti-spam field -->
+              <div style="display:none;">
+                <label for="website_url">Do not fill this out if you are human</label>
+                <input type="text" id="website_url" name="website_url" value="" autocomplete="off" />
+              </div>
+
+              <label for="name">Your name</label>
+              <input id="name" name="name" class="form-control" required placeholder="e.g. Priya Sharma" />
+
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" class="form-control" required placeholder="you@company.com" />
+
+              <label for="projectType">Project type</label>
+              <select id="projectType" name="project_type" class="form-control" required>
+                <option value="">Select</option>
+                <option value="app-development">App Development</option>
+                <option value="maintenance">Maintenance</option>
+                <option value="firebase">Firebase Setup</option>
+                <option value="consultation">Consultation</option>
+              </select>
+
+              <label for="budget">Estimated budget (optional)</label>
+              <select id="budget" name="budget_range" class="form-control">
+                <option value="">Prefer not to say</option>
+                <option value="under-500">&lt; $50</option>
+                <option value="500-1500">$50–$150</option>
+                <option value="1500-5000">$150–$500</option>
+                <option value="5000-plus">$500+</option>
+              </select>
+
+              <label for="message">Brief description</label>
+              <textarea id="message" name="message" rows="5" class="form-control"
+                placeholder="What do you want built? (scope, platform, deadline)" required></textarea>
+
+              <div class="flip-3d">
+                <div class="flip-3d-inner">
+                  <button class="btn btn-primary" type="submit"><i class="fas fa-paper-plane"></i> Send request</button>
+                </div>
+              </div>
+              <div id="successMessage" style="display:none; margin-top:20px; color:var(--cyan); font-weight:600;">Thanks
+                — I will respond within 24 hours.</div>
+            </form>
+          </div>
+
+          <aside class="glass-card reveal-text" style="transition-delay:0.2s">
+            <h3>Prefer to chat?</h3>
+            <p>Message me on WhatsApp for quick quotes or schedule a call.</p>
+            <div style="display:flex; flex-direction:column; gap:16px; margin-top:24px;">
+              <div class="flip-3d">
+                <div class="flip-3d-inner">
+                  <a class="btn btn-primary secure-wa-link" href="#"
+                    style="width:100%"><i class="fab fa-whatsapp"></i> Chat on WhatsApp</a>
+                </div>
+              </div>
+              <div class="flip-3d">
+                <div class="flip-3d-inner">
+                  <a class="btn btn-ghost secure-email-link" href="#" style="width:100%"><i
+                      class="fas fa-envelope"></i> Email me</a>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:32px; padding-top:24px;">
+              <strong>Quick facts</strong>
+              <ul style="color:var(--muted); margin-top:16px; padding-left:20px; font-size:0.9rem; line-height:1.8;">
+                <li>24-hour initial reply on quotes</li>
+                <li>Affordable student-friendly rates</li>
+                <li>Source control & Play Store publishing included</li>
+              </ul>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Video Popup Modal -->
+  <div id="videoModal" class="video-modal">
+    <span class="video-modal-close" id="modalClose">&times;</span>
+    <div class="video-modal-content">
+      <video id="modalVideo" controls playsinline></video>
+    </div>
+  </div>
+
+  <!-- footer -->
+  <footer id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="logo">
+            <img src="assets/logo1.jpeg" alt="mShivam Logo" class="logo-img">
+          </div>
+          <p style="color:var(--muted); margin-top:12px;">Freelance Android Developer — Kotlin & Firebase</p>
+        </div>
+
+        <div style="display:flex; gap:60px; flex-wrap:wrap;">
+          <div>
+            <h4 style="margin-bottom:16px;">Links</h4>
+            <ul style="list-style:none; padding:0; margin:0; line-height:2;">
+              <li><a href="#services" style="color:var(--muted);">Services</a></li>
+              <li><a href="#portfolio" style="color:var(--muted);">Portfolio</a></li>
+              <li><a href="#Get-In-Touch" style="color:var(--muted);">Contact</a></li>
+              <li><a href="about-shivam-kumar-android-developer.html" style="color:var(--muted);">About Shivam</a></li>
+              <li><a href="android-developer-roadmap-by-shivam.html" style="color:var(--muted);">Android Roadmap</a>
+              </li>
+              <li><a href="cost-of-android-app-development-india.html" style="color:var(--muted);">App Cost</a></li>
+              <li><a href="firebase-integration-android-guide.html" style="color:var(--muted);">Firebase Guide</a></li>
+              <li><a href="kotlin-for-android-developers.html" style="color:var(--muted);">Kotlin Guide</a></li>
+              <li><a href="android-project-ideas-guide.html" style="color:var(--muted);">Project Ideas</a></li>
+              <li><a href="hire-android-developer-guide.html" style="color:var(--muted);">Hire Android Developer</a>
+              </li>
+              <li><a href="android-app-case-studies.html" style="color:var(--muted);">Case Studies</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 style="margin-bottom:16px;">Contact</h4>
+            <p style="margin:0;"><a href="#" class="secure-email-link" style="color:var(--muted); text-decoration:none;"><i class="fas fa-envelope"></i> Click to Email Shivam</a></p>
+            <p style="margin-top:8px; margin-bottom:0;"><a href="#" class="secure-wa-link" style="color:var(--muted); text-decoration:none;"><i class="fab fa-whatsapp"></i> Click to Chat via WhatsApp</a></p>
+          </div>
+        </div>
+
+        <div>
+          <h4 style="margin-bottom:16px;">Social</h4>
+          <div class="socials">
+            <a href="https://github.com/shivamkumarptu" target="_blank"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/shivam-kumar-1b1611210/" target="_blank"><i
+                class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AI Chatbot Floating Interface -->
+  <div id="portfolio-chatbot" class="portfolio-chatbot-wrapper">
+    <div id="chat-toggle" class="chat-toggle-btn">
+      <i class="fas fa-robot"></i>
+      <span class="chat-toggle-badge">AI</span>
+    </div>
+
+    <div id="chat-window" class="chat-window" data-lenis-prevent>
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">S</div>
+          <div>
+            <h4 class="chat-title">Shivam's AI Guide</h4>
+            <span class="chat-status"><span class="status-dot"></span> Online</span>
+          </div>
+        </div>
+        <button id="chat-close" class="chat-close-btn">&times;</button>
+      </div>
+
+      <div id="chat-messages" class="chat-messages" data-lenis-prevent>
+        <!-- Message list populated dynamically -->
+      </div>
+
+      <div class="chat-chips-container">
+        <div class="chat-chips">
+          <button class="chat-chip" data-query="What services do you offer?">🛠️ Services</button>
+          <button class="chat-chip" data-query="How can I hire Shivam?">🤝 Hire Shivam</button>
+          <button class="chat-chip" data-query="Can I see your portfolio?">📁 Portfolio</button>
+          <button class="chat-chip" data-query="How can I download your resume?">📄 Resume</button>
+        </div>
+      </div>
+
+      <form id="chat-form" class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Ask about Shivam's services..." required autocomplete="off" />
+        <button type="submit" class="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modular Modernised Scripts (Phase 4) -->
+  <script src="/assets/js/main.js"></script>
+  <script src="/assets/js/animations.js"></script>
+  <script src="/assets/js/chatbot.js"></script>
+</body>
+
+</html>
