@@ -1672,3 +1672,25 @@ footer .video-overlay {
     height: 460px;
   }
 }
+
+/* Chat Link Styling */
+.chat-link {
+  color: var(--blue) !important;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1.5px solid rgba(0, 224, 255, 0.3);
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 224, 255, 0.05);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  word-break: break-all;
+}
+
+.chat-link:hover {
+  color: #fff !important;
+  background: var(--cyan);
+  border-bottom-color: var(--cyan);
+  box-shadow: 0 4px 12px rgba(0, 173, 181, 0.4);
+  transform: translateY(-1px);
+}

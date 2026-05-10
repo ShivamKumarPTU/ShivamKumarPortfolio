@@ -225,10 +225,53 @@ ${JSON.stringify(MY_DATA, null, 2)}
 - If asked about pricing or project quotes: "Pricing depends on your specific requirements. Please reach out to Shivam directly at ${MY_DATA.basic.email} to get a custom quote — he'll get back to you within 4–6 hours."
 - If asked personal/private questions not inside MY_DATA: "That's outside what I can answer here. Feel free to connect directly with Shivam on LinkedIn or via email."`;
 
+  function formatMessageText(text) {
+    let escaped = text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+
+    // Replace markdown links first with a temporary unique placeholder, e.g., ___LINK_0___
+    const links = [];
+    escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, label, url) => {
+      const id = `___LINK_${links.length}___`;
+      links.push(`<a class="chat-link" href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`);
+      return id;
+    });
+
+    // Replace raw URLs (which are NOT part of any placeholder) with <a> tags
+    escaped = escaped.replace(/(https?:\/\/[^\s]+)/g, (match, url) => {
+      // If the url ends with punctuation, trim it out from the anchor href
+      let cleanUrl = url;
+      let suffix = "";
+      const matchPunc = url.match(/[.,;:!)]+$/);
+      if (matchPunc) {
+        cleanUrl = url.substring(0, url.length - matchPunc[0].length);
+        suffix = matchPunc[0];
+      }
+      return `<a class="chat-link" href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>` + suffix;
+    });
+
+    // Restore the markdown links from placeholders
+    links.forEach((linkHtml, index) => {
+      escaped = escaped.replace(`___LINK_${index}___`, linkHtml);
+    });
+
+    return escaped.replace(/\n/g, '<br>');
+  }
+
   function appendMessage(sender, text) {
     const bubble = document.createElement('div');
     bubble.className = `chat-bubble ${sender}`;
-    bubble.innerHTML = text.replace(/\n/g, '<br>');
+    if (sender === 'bot') {
+      bubble.innerHTML = formatMessageText(text);
+    } else {
+      bubble.innerHTML = text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\n/g, '<br>');
+    }
     chatMessages.appendChild(bubble);
     chatMessages.scrollTop = chatMessages.scrollHeight;
   }

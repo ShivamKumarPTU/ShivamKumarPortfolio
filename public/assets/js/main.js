@@ -3,10 +3,17 @@
  * Manages scrolling initialization, contact details protection, mobile navigation, and secure contact form submissions.
  */
 (function () {
+  // Configuration: Update these with your active EmailJS values to receive emails directly!
+  const EMAILJS_CONFIG = {
+    serviceId: "service_default",   // Update this with your EmailJS Service ID (e.g., "service_xxxxxx")
+    templateId: "template_default"  // Update this with your EmailJS Template ID (e.g., "template_xxxxxx")
+  };
+
   // Base64 keys for security (Phase 1)
   const SECURE_KEYS = {
     emailJS: "X2dSSmN1akJzUUd5dVduZWo=", // _gRJcujBsQGyuWnej
     primaryEmail: "c2hpdmFtcmFuYXBvYXJpQGdtYWlsLmNvbQ==", // shivamranapoari@gmail.com
+    hiringEmail: "aGlyZS5zaGl2YW1rdW1hckBnbWFpbC5jb20=", // hire.shivamkumar@gmail.com
     whatsappNum: "OTE2MjA0MDgxMzE1", // 916204081315
   };
 
@@ -124,8 +131,9 @@
     emailLinks.forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
-        const mail = secureDecode(SECURE_KEYS.primaryEmail);
-        window.location.href = `mailto:${mail}`;
+        const mail = secureDecode(SECURE_KEYS.hiringEmail);
+        // Opens Gmail Web Compose directly in a browser tab
+        window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(mail)}`, '_blank');
       });
     });
 
@@ -239,8 +247,8 @@
 
       if (typeof emailjs !== 'undefined') {
         try {
-          // Send form via EmailJS safely (using active service/template default bindings)
-          await emailjs.sendForm('service_default', 'template_default', contactForm);
+          // Send form via EmailJS safely (using active service/template bindings)
+          await emailjs.sendForm(EMAILJS_CONFIG.serviceId, EMAILJS_CONFIG.templateId, contactForm);
           
           if (successMsg) {
             successMsg.style.color = 'var(--cyan)';
