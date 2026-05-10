@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ScrambleText } from './MotionUtils';
 
@@ -11,12 +11,20 @@ const faqs = [
   { q: "Can you publish to my Google Play Store?", a: "Absolutely. I handle the entire publishing process, including store listing optimization and internal testing rounds." }
 ];
 
-const FaqItem = ({ question, answer }: { question: string, answer: string }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
+const FaqItem = ({ 
+  question, 
+  answer, 
+  isOpen, 
+  onToggle 
+}: { 
+  question: string, 
+  answer: string, 
+  isOpen: boolean, 
+  onToggle: () => void 
+}) => {
   return (
-    <div className={`faq-item ${isOpen ? 'active' : ''}`}>
-      <button className="faq-question" onClick={() => setIsOpen(!isOpen)}>
+    <div className={`faq-item ${isOpen ? 'active' : ''}`} style={{ marginBottom: '16px' }}>
+      <button className="faq-question" onClick={onToggle}>
         {question} <i className={`fas fa-chevron-${isOpen ? 'up' : 'down'}`}></i>
       </button>
       <AnimatePresence>
@@ -27,8 +35,9 @@ const FaqItem = ({ question, answer }: { question: string, answer: string }) => 
             exit={{ height: 0, opacity: 0 }}
             className="faq-answer-container"
             style={{ overflow: 'hidden' }}
+            transition={{ duration: 0.35, ease: [0.25, 1, 0.5, 1] }}
           >
-            <div className="faq-answer" style={{ maxHeight: 'none', padding: '0 24px 24px 24px' }}>
+            <div className="faq-answer" style={{ maxHeight: 'none', marginTop: '12px' }}>
               <p>{answer}</p>
             </div>
           </motion.div>
@@ -39,8 +48,29 @@ const FaqItem = ({ question, answer }: { question: string, answer: string }) => 
 };
 
 const FAQ = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        // Auto-close open dropdowns when the user leaves the FAQ section
+        if (!entry.isIntersecting) {
+          setOpenIndex(null);
+        }
+      },
+      { threshold: 0.05 } // Triggers closure when section is nearly out of view
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="faq">
+    <section id="faq" ref={sectionRef}>
       <div className="container">
         <motion.div 
           className="section-header faq-header"
@@ -60,7 +90,13 @@ const FAQ = () => {
           transition={{ duration: 0.6 }}
         >
           {faqs.map((faq, index) => (
-            <FaqItem key={index} question={faq.q} answer={faq.a} />
+            <FaqItem 
+              key={index} 
+              question={faq.q} 
+              answer={faq.a} 
+              isOpen={openIndex === index}
+              onToggle={() => setOpenIndex(openIndex === index ? null : index)}
+            />
           ))}
         </motion.div>
       </div>
