@@ -1873,10 +1873,10 @@ ${JSON.stringify(MY_DATA, null, 2)}
 
         try {
           // Dynamically resolve the chatbot endpoint
-          // When running on GitHub Pages or locally, we query your free, high-speed Vercel serverless function!
-          let endpoint = '/api/chat'; // Default relative path when deployed on Vercel
-          if (window.location.hostname !== 'shivamkumarportfolio.vercel.app' && !window.location.hostname.includes('vercel.app')) {
-            endpoint = 'https://shivamkumarportfolio.vercel.app/api/chat';
+          let endpoint = '/api/chat'; // Default relative path for local development (Vercel Dev) & Vercel
+          if (window.location.hostname === 'shivamkumarptu.github.io') {
+            // Live production GitHub Pages pointing to your secure Vercel backend
+            endpoint = 'https://shivam-app-studio.vercel.app/api/chat';
           }
 
           const response = await fetch(endpoint, {
