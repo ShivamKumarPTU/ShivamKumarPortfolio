@@ -1294,28 +1294,50 @@
       });
     }
 
-    // Initialize SplitText Stagger Reveals for paragraphs & testimonials
+    // Initialize SplitText Stagger Reveals for prominent headlines & lightweight standard reveals for paragraphs
     function initSplitTextParagraphs() {
-      const paragraphs = document.querySelectorAll('.about-text h1, .about-text p, .tech-grid .glass-card h3, .glass-card h4, .tech-grid .glass-card p, .testimonial-text');
-      paragraphs.forEach(p => {
-        if (p.classList.contains('split-done')) return;
-        p.classList.add('split-done');
+      // 1. Splitting only essential headlines to reduce DOM nodes and layout passes
+      const headingsToSplit = document.querySelectorAll('.about-text h1');
+      headingsToSplit.forEach(h => {
+        if (h.classList.contains('split-done')) return;
+        h.classList.add('split-done');
 
-        const split = new SplitType(p, {
+        const split = new SplitType(h, {
           types: 'lines, words'
         });
 
-        const triggerEl = p.closest('.glass-card') || p.closest('.about-text') || p;
+        const triggerEl = h.closest('.about-text') || h;
 
         gsap.from(split.words, {
           opacity: 0,
           y: 12,
-          stagger: 0.012,
+          stagger: 0.015,
           duration: 0.8,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: triggerEl,
             start: 'top 90%',
+            toggleActions: 'play none none none'
+          }
+        });
+      });
+
+      // 2. High-performance, lightweight standard fades for description paragraphs, testimonials, and sub-card titles
+      const fadeElements = document.querySelectorAll('.about-text p, .tech-grid .glass-card h3, .glass-card h4, .tech-grid .glass-card p, .testimonial-text');
+      fadeElements.forEach(el => {
+        if (el.classList.contains('reveal-done')) return;
+        el.classList.add('reveal-done');
+
+        const triggerEl = el.closest('.glass-card') || el.closest('.about-text') || el;
+
+        gsap.from(el, {
+          opacity: 0,
+          y: 15,
+          duration: 0.8,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: triggerEl,
+            start: 'top 92%',
             toggleActions: 'play none none none'
           }
         });
@@ -1392,7 +1414,7 @@
       }
     }
 
-    // High-fidelity staggered GSAP revealing for the 6 Services cards and their inner texts
+    // High-fidelity staggered GSAP revealing for the 6 Services cards and their inner texts (optimized without heavy SplitType)
     function initServicesAnimations() {
       const cards = document.querySelectorAll('.services-grid .glass-card');
       if (!cards.length) return;
@@ -1404,10 +1426,6 @@
         // Grab inner text elements
         const h3 = card.querySelector('h3');
         const p = card.querySelector('p');
-
-        let splitH3, splitP;
-        if (h3) splitH3 = new SplitType(h3, { types: 'words' });
-        if (p) splitP = new SplitType(p, { types: 'words' });
 
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -1424,21 +1442,19 @@
           ease: 'power3.out'
         });
 
-        if (splitH3 && splitH3.words) {
-          tl.from(splitH3.words, {
+        if (h3) {
+          tl.from(h3, {
             opacity: 0,
-            y: 8,
-            stagger: 0.015,
+            y: 10,
             duration: 0.5,
             ease: 'power2.out'
-          }, '-=0.4'); // Stagger starts slightly before card anim finishes
+          }, '-=0.4'); // Starts slightly before card animation finishes
         }
 
-        if (splitP && splitP.words) {
-          tl.from(splitP.words, {
+        if (p) {
+          tl.from(p, {
             opacity: 0,
-            y: 8,
-            stagger: 0.01,
+            y: 10,
             duration: 0.5,
             ease: 'power2.out'
           }, '-=0.3');
