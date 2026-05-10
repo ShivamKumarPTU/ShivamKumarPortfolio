@@ -159,10 +159,7 @@
       <div class="container">
         <div style="max-width:800px; margin: 0 auto; text-align: center;">
           <h1 class="hero-title" style="text-align: center;"><span id="hero-title-text">Convert Your App Idea into reality</span><span class="hero-title-cursor">|</span></h1>
-          <div class="hero-typing reveal-text" style="transition-delay:0.2s;">
-            <span id="typing-text"></span><span class="typing-cursor">|</span>
-          </div>
-          <p class="hero-sub reveal-text" style="transition-delay:0.4s; text-align: center;">I help businesses and
+          <p class="hero-sub reveal-text" style="transition-delay:0.2s; text-align: center;">I help businesses and
             entrepreneurs launch production-ready Android apps quickly using Kotlin, Jetpack Compose, and Firebase.</p>
 
           <div class="trust-row reveal-text"
@@ -201,9 +198,9 @@
               <span style="color: var(--blue); font-style: italic;">Shivam Kumar</span>
             </h1>
             <p class="reveal-text"
-              style="font-size: 1.4rem; color: var(--slate); margin-bottom: 24px; line-height: 1.4;">A passionate
-              freelance Android developer from India who builds modern, scalable and high-performance Android
-              applications for businesses and startups.</p>
+              style="font-size: 1.4rem; color: var(--slate); margin-bottom: 24px; line-height: 1.4; font-family: 'Poppins', sans-serif; font-weight: 600; min-height: 48px;">
+              <span id="typing-prefix" style="color: var(--slate);">I am a </span><span id="typing-text" style="color: var(--blue);"></span><span class="typing-cursor">|</span>
+            </p>
             <p class="reveal-text" style="font-size: 1.1rem; color: var(--muted); line-height: 1.6;">Specializing in
               <span style="color: var(--blue); font-weight: 600;">Kotlin</span>, <span
                 style="color: var(--blue); font-weight: 600;">Jetpack Compose</span> and <span
@@ -878,26 +875,33 @@
   <script>
     (function () { emailjs.init("_gRJcujBsQGyuWnej"); })();
 
-    // Dynamic typing animation in Hero Section
+    // Dynamic typing animation in About Me Section
     function initTyping() {
       const words = [
         "Full-Stack Android Developer",
         "AI Integration Expert",
-        "Production-Ready Solutions"
+        "Builder of Production-Ready Solutions"
       ];
       let i = 0;
       let timer;
       const element = document.getElementById('typing-text');
+      const prefixElement = document.getElementById('typing-prefix');
       if (!element) return;
 
       function typingEffect() {
+        if (prefixElement) {
+          const firstChar = words[i].charAt(0).toLowerCase();
+          const isVowel = ['a', 'e', 'i', 'o', 'u'].includes(firstChar);
+          prefixElement.textContent = isVowel ? "I am an " : "I am a ";
+        }
+
         let word = words[i].split("");
         var loopTyping = function() {
           if (word.length > 0) {
             element.textContent += word.shift();
             timer = setTimeout(loopTyping, 60);
           } else {
-            setTimeout(deletingEffect, 2000);
+            setTimeout(deletingEffect, 2500);
           }
         };
         loopTyping();
@@ -909,7 +913,7 @@
           if (word.length > 0) {
             word.pop();
             element.textContent = word.join("");
-            timer = setTimeout(loopDeleting, 50);
+            timer = setTimeout(loopDeleting, 30);
           } else {
             i = (i + 1) % words.length;
             setTimeout(typingEffect, 500);
