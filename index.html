@@ -1040,8 +1040,8 @@
     // Initialize Lenis
     if (typeof Lenis !== 'undefined') {
       const lenis = new Lenis({
-        duration: 1.0,
-        easing: (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t),
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         direction: 'vertical',
         gestureDirection: 'vertical',
         smooth: true,
@@ -1051,19 +1051,19 @@
         infinite: false,
       });
 
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
-      // Sync ScrollTrigger with Lenis
+      // Sync ScrollTrigger with Lenis if available, otherwise fallback to requestAnimationFrame
       if (typeof ScrollTrigger !== 'undefined') {
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => {
           lenis.raf(time * 1000);
         });
         gsap.ticker.lagSmoothing(0);
+      } else {
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
       }
 
       // Navigation ScrollTo
@@ -1463,44 +1463,67 @@
       });
     }
 
-    // Initialize More Projects reveal click behavior
+    // Initialize More Projects reveal/collapse toggle click behavior
     function initMoreProjects() {
       const moreProjectsBtn = document.getElementById('moreProjectsBtn');
       if (moreProjectsBtn) {
+        let showingMore = false;
         moreProjectsBtn.addEventListener('click', () => {
           const hiddenProjects = document.querySelectorAll('.portfolio-grid .hidden-project');
-          hiddenProjects.forEach(proj => {
-            proj.style.display = ''; // Removes inline display:none;
+          
+          if (!showingMore) {
+            showingMore = true;
+            moreProjectsBtn.innerHTML = 'Hide Projects ←';
             
-            // Elegantly animate using GSAP
-            gsap.set(proj, { opacity: 0, y: 35 });
-            gsap.to(proj, {
-              opacity: 1,
-              y: 0,
-              duration: 0.8,
-              ease: 'power3.out',
-              onStart: () => {
-                const video = proj.querySelector('.portfolio-video');
-                if (video) {
-                  video.play().catch(err => console.log("Video auto play failed:", err));
+            hiddenProjects.forEach(proj => {
+              proj.style.display = ''; // Removes inline display:none;
+              
+              // Elegantly animate using GSAP
+              gsap.set(proj, { opacity: 0, y: 35 });
+              gsap.to(proj, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: 'power3.out',
+                onStart: () => {
+                  const video = proj.querySelector('.portfolio-video');
+                  if (video) {
+                    video.play().catch(err => console.log("Video auto play failed:", err));
+                  }
+                }
+              });
+            });
+          } else {
+            showingMore = false;
+            moreProjectsBtn.innerHTML = 'More Projects →';
+            
+            // Fade out the hidden projects
+            gsap.to(hiddenProjects, {
+              opacity: 0,
+              y: 35,
+              duration: 0.6,
+              ease: 'power3.inOut',
+              onComplete: () => {
+                hiddenProjects.forEach(proj => {
+                  proj.style.display = 'none';
+                  const video = proj.querySelector('.portfolio-video');
+                  if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                  }
+                });
+                
+                // Smoothly scroll back to the top of the portfolio section
+                if (window.lenis) {
+                  window.lenis.scrollTo('#portfolio', { offset: -72, duration: 1 });
+                } else {
+                  const portfolioSection = document.getElementById('portfolio');
+                  if (portfolioSection) {
+                    portfolioSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }
               }
             });
-          });
-
-          // Animate and hide the "More Projects" button wrapper
-          const flip3DContainer = moreProjectsBtn.closest('.flip-3d');
-          if (flip3DContainer) {
-            gsap.to(flip3DContainer, {
-              opacity: 0,
-              y: 20,
-              duration: 0.4,
-              onComplete: () => {
-                flip3DContainer.style.display = 'none';
-              }
-            });
-          } else {
-            moreProjectsBtn.style.display = 'none';
           }
 
           // Trigger a refresh for ScrollTrigger since the page height changed
