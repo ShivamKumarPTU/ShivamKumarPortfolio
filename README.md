@@ -3,7 +3,7 @@
 Welcome to the source code for my professional portfolio website! This site serves as my digital storefront, showcasing my expertise in native Android development, AI integration, and full-stack software engineering.
 
 ## 🚀 Live Website
-[View Portfolio](https://shivamkumarptu.github.io/Business-Site/)
+[View Portfolio](https://shivamkumarptu.github.io/ShivamKumarPortfolio/)
 
 ## 👨‍💻 About Me
 I am a B.Tech Mechatronics student at Puducherry Technological University (CGPA 9.21) and an incoming intern at SVNIT Surat / OneBill AI CoE. With over 3 years of experience building scalable, high-performance mobile apps, I specialize in Kotlin, Jetpack Compose, Firebase, and AI-powered mobile solutions.
