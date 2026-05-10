@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
   <style>
-    body { background: #000; overflow-x: hidden; }
+    body { background: transparent; overflow-x: hidden; }
     
     .back-btn {
       position: fixed;
@@ -286,10 +286,11 @@
   </style>
 </head>
 <body>
-  <video class="video-bg" autoplay muted loop playsinline>
-    <source src="assets/rank2.mp4" type="video/mp4">
+  <!-- Global Fixed Background Video -->
+  <video class="global-video-bg" autoplay muted loop playsinline preload="auto">
+    <source src="assets/hero1.mp4" type="video/mp4">
   </video>
-  <div class="video-overlay" style="background: rgba(0,0,0,0.75)"></div>
+  <div class="global-video-overlay"></div>
 
   <a href="index.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Home</a>
 
