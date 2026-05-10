@@ -999,8 +999,28 @@ section {
   overflow: hidden;
   padding: 40px 0;
   position: relative;
-  -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
-  mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+}
+
+/* Stunning, high-performance edge fades that don't block glass blur */
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 15%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, #000000 0%, rgba(0, 0, 0, 0.8) 30%, transparent 100%);
+}
+
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, #000000 0%, rgba(0, 0, 0, 0.8) 30%, transparent 100%);
 }
 
 /* --- FAQ & Testimonials --- */
