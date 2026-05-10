@@ -298,7 +298,7 @@ ${JSON.stringify(MY_DATA, null, 2)}
     try {
       // Direct relative endpoint configuration (Phase 1)
       let endpoint = '/api/chat';
-      if (window.location.hostname === 'shivamkumarptu.github.io') {
+      if (window.location.hostname !== 'shivam-app-studio.vercel.app') {
         endpoint = 'https://shivam-app-studio.vercel.app/api/chat';
       }
 
