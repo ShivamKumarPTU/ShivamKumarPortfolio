@@ -60,6 +60,19 @@
   <!-- Instant Preloader Start -->
   <script>
     (function () {
+      if (sessionStorage.getItem('preloaderPlayed')) {
+        const preloader = document.getElementById('preloader');
+        if (preloader) preloader.style.display = 'none';
+        document.body.style.overflow = 'auto';
+        window.addEventListener('load', () => {
+          if (typeof initAllAnimations === 'function') {
+            initAllAnimations();
+          }
+        });
+        return;
+      }
+      sessionStorage.setItem('preloaderPlayed', 'true');
+
       const start = Date.now();
       const interval = setInterval(() => {
         const percentageEl = document.getElementById('loader-percentage');
@@ -1451,6 +1464,56 @@
       });
     }
 
+    // Initialize More Projects reveal click behavior
+    function initMoreProjects() {
+      const moreProjectsBtn = document.getElementById('moreProjectsBtn');
+      if (moreProjectsBtn) {
+        moreProjectsBtn.addEventListener('click', () => {
+          const hiddenProjects = document.querySelectorAll('.portfolio-grid .hidden-project');
+          hiddenProjects.forEach(proj => {
+            proj.style.display = ''; // Removes inline display:none;
+            
+            // Elegantly animate using GSAP
+            gsap.set(proj, { opacity: 0, y: 35 });
+            gsap.to(proj, {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power3.out',
+              onStart: () => {
+                const video = proj.querySelector('.portfolio-video');
+                if (video) {
+                  video.play().catch(err => console.log("Video auto play failed:", err));
+                }
+              }
+            });
+          });
+
+          // Animate and hide the "More Projects" button wrapper
+          const flip3DContainer = moreProjectsBtn.closest('.flip-3d');
+          if (flip3DContainer) {
+            gsap.to(flip3DContainer, {
+              opacity: 0,
+              y: 20,
+              duration: 0.4,
+              onComplete: () => {
+                flip3DContainer.style.display = 'none';
+              }
+            });
+          } else {
+            moreProjectsBtn.style.display = 'none';
+          }
+
+          // Trigger a refresh for ScrollTrigger since the page height changed
+          if (typeof ScrollTrigger !== 'undefined') {
+            setTimeout(() => {
+              ScrollTrigger.refresh();
+            }, 100);
+          }
+        });
+      }
+    }
+
     // Main animation coordinator
     function initAllAnimations() {
       if (window.animationsInitialized) return;
@@ -1463,6 +1526,7 @@
       initSplitTextParagraphs();
       initFeaturedLists();
       initVideoModal();
+      initMoreProjects();
     }
 
     if (document.readyState === 'loading') {

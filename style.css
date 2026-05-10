@@ -941,6 +941,16 @@ section {
   transition: border-color 0.3s ease;
 }
 
+select.form-control {
+  background-color: #121212 !important;
+  color: #ffffff !important;
+}
+
+select.form-control option {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+}
+
 .form-control:focus {
   outline: none;
   border-color: var(--cyan);
