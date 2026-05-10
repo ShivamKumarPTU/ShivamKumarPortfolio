@@ -655,17 +655,17 @@ section {
 
 /* --- Beta Tester Reviews Super-Dense Acrylic Glass --- */
 .marquee-card.glass-card {
-  background: rgba(255, 255, 255, 0.04) !important;
-  backdrop-filter: blur(18px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(24px) saturate(140%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(140%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
 }
 
 .marquee-card.glass-card:hover {
   transform: translateY(-8px) scale(1.02) !important;
-  border-color: rgba(0, 224, 255, 0.5) !important;
-  box-shadow: 0 0 35px rgba(0, 224, 255, 0.25) !important;
+  border-color: rgba(0, 224, 255, 0.6) !important;
+  box-shadow: 0 0 35px rgba(0, 224, 255, 0.3) !important;
 }
 
 /* --- Stats Grid --- */
