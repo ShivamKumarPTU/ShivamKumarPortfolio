@@ -119,15 +119,39 @@ html.lenis {
 
 html {
   scroll-behavior: auto; /* Managed by Lenis */
+  background: var(--navy);
 }
 
 body {
   margin: 0;
   font-family: 'Inter', sans-serif;
   color: var(--slate);
-  background: var(--navy);
+  background: transparent;
   -webkit-font-smoothing: antialiased;
   line-height: 1.6;
+}
+
+/* --- Global Background Video --- */
+.global-video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -999;
+  pointer-events: none;
+}
+
+.global-video-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.72); /* Deep dark overlay for rich high-contrast readability */
+  z-index: -998;
+  pointer-events: none;
 }
 
 a {
