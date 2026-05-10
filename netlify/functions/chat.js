@@ -1,9 +1,29 @@
 // Using built-in fetch (available in Node.js 18+)
 
 exports.handler = async (event) => {
-  // Only allow POST requests
+  // Define CORS headers to allow cross-origin requests (e.g. from GitHub Pages)
+  const corsHeaders = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS'
+  };
+
+  // Handle preflight OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 200,
+      headers: corsHeaders,
+      body: ''
+    };
+  }
+
+  // Only allow POST requests for chat completion
   if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+    return { 
+      statusCode: 405, 
+      headers: corsHeaders,
+      body: 'Method Not Allowed' 
+    };
   }
 
   try {
@@ -13,6 +33,7 @@ exports.handler = async (event) => {
     if (!GROQ_API_KEY) {
       return { 
         statusCode: 500, 
+        headers: corsHeaders,
         body: JSON.stringify({ error: 'Groq API Key not configured in Netlify' }) 
       };
     }
@@ -35,13 +56,16 @@ exports.handler = async (event) => {
 
     return {
       statusCode: response.status,
+      headers: corsHeaders,
       body: JSON.stringify(data)
     };
   } catch (error) {
     console.error('Netlify Function Error:', error);
     return {
       statusCode: 500,
+      headers: corsHeaders,
       body: JSON.stringify({ error: 'Failed to process chat request' })
     };
   }
 };
+
