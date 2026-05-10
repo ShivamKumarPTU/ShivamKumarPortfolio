@@ -15,7 +15,16 @@ export default async function handler(request, response) {
   }
 
   try {
-    const { messages } = request.body;
+    let body = request.body;
+    if (typeof body === 'string') {
+      try {
+        body = JSON.parse(body);
+      } catch (parseError) {
+        console.error('Failed to parse body string:', parseError);
+        return response.status(400).json({ error: 'Invalid JSON payload' });
+      }
+    }
+    const { messages } = body || {};
     const GROQ_API_KEY = process.env.GROQ_API_KEY;
 
     if (!GROQ_API_KEY) {
