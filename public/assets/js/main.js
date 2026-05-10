@@ -214,6 +214,7 @@
       if (honeypot && honeypot.value !== '') {
         console.warn("Spam detected via Honeypot.");
         if (successMsg) {
+          successMsg.style.color = 'var(--cyan)';
           successMsg.textContent = "Thank you for your message!";
           successMsg.style.display = 'block';
         }
@@ -230,21 +231,6 @@
         submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Sending request...`;
       }
 
-      // Collect data for fallback usage
-      const nameVal = document.getElementById('name')?.value || "";
-      const emailVal = document.getElementById('email')?.value || "";
-      const projTypeVal = document.getElementById('projectType')?.value || "";
-      const budgetVal = document.getElementById('budget')?.value || "";
-      const msgVal = document.getElementById('message')?.value || "";
-
-      const primaryEmail = secureDecode(SECURE_KEYS.primaryEmail);
-      const mailSubject = `App Project Query from ${nameVal}`;
-      const mailBody = `Name: ${nameVal}\n` +
-                       `Email: ${emailVal}\n` +
-                       `Project Type: ${projTypeVal}\n` +
-                       `Estimated Budget: ${budgetVal}\n\n` +
-                       `Description:\n${msgVal}`;
-
       if (typeof emailjs !== 'undefined') {
         try {
           // Send form via EmailJS safely (using active service/template bindings)
@@ -257,17 +243,12 @@
           }
           contactForm.reset();
         } catch (error) {
-          console.error("EmailJS submission failed, falling back to mailto:", error);
-          
-          // Highly elegant automatic fallback to mailto: so no leads are ever lost!
-          window.open(`mailto:${primaryEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`);
-          
+          console.error("EmailJS submission failed:", error);
           if (successMsg) {
-            successMsg.style.color = 'var(--cyan)';
-            successMsg.textContent = "Opening your email client to send the request directly to Shivam...";
+            successMsg.style.color = '#ff6b6b';
+            successMsg.textContent = "Something went wrong. Please connect with me directly on WhatsApp!";
             successMsg.style.display = 'block';
           }
-          contactForm.reset();
         } finally {
           if (submitBtn) {
             submitBtn.disabled = false;
@@ -275,16 +256,11 @@
           }
         }
       } else {
-        // Safe fallback if EmailJS is blocked by clients
-        window.open(`mailto:${primaryEmail}?subject=${encodeURIComponent(mailSubject)}&body=${encodeURIComponent(mailBody)}`);
-        
         if (successMsg) {
-          successMsg.style.color = 'var(--cyan)';
-          successMsg.textContent = "Opening your email client to send the request directly to Shivam...";
+          successMsg.style.color = '#ff6b6b';
+          successMsg.textContent = "Email service is currently unavailable. Please connect with me directly on WhatsApp!";
           successMsg.style.display = 'block';
         }
-        contactForm.reset();
-
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.innerHTML = originalBtnText;
