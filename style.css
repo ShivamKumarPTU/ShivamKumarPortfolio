@@ -6,9 +6,9 @@
   --blue: #00E0FF;
   --slate: #F8FAFC;
   --muted: #E2E8F0;
-  --glass: rgba(255, 255, 255, 0.05);
+  --glass: rgba(255, 255, 255, 0.02);
   --glass-border: rgba(255, 255, 255, 0.08);
-  --overlay: rgba(0, 0, 0, 0.4);
+  --overlay: rgba(0, 0, 0, 0.60);
   --radius: 16px;
   --container: 1200px;
   --gradient: linear-gradient(135deg, var(--blue), var(--pink), var(--cyan));
@@ -146,7 +146,7 @@ body {
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.72);
+  background: rgba(0, 0, 0, 0.82);
   /* Deep dark overlay for rich high-contrast readability */
   z-index: -998;
   pointer-events: none;
@@ -467,21 +467,20 @@ section {
 /* --- Glassmorphism Cards --- */
 .glass-card {
   background: var(--glass);
-  backdrop-filter: blur(10px) saturate(140%);
-  /* Halved blur depth to cut GPU repaint time in half */
-  -webkit-backdrop-filter: blur(10px) saturate(140%);
+  backdrop-filter: blur(15px) saturate(140%);
+  -webkit-backdrop-filter: blur(15px) saturate(140%);
   border: 1px solid var(--glass-border);
   border-radius: 20px;
   padding: 2rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, border-color 0.3s ease;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.4s cubic-bezier(0.25, 1, 0.5, 1);
   height: 100%;
 }
 
 .glass-card:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) scale(1.01);
   border-color: rgba(0, 224, 255, 0.4);
-  box-shadow: 0 15px 45px rgba(0, 224, 255, 0.25), 0 0 25px rgba(255, 0, 229, 0.12);
+  box-shadow: 0 0 35px rgba(0, 224, 255, 0.25);
 }
 
 /* --- Hero Section --- */
@@ -917,7 +916,9 @@ section {
 
 /* Keep fast hover transition once entry animation is active */
 .services-grid .glass-card.active:hover {
-  transform: translateY(-10px);
+  transform: translateY(-10px) scale(1.01);
+  border-color: rgba(0, 224, 255, 0.4);
+  box-shadow: 0 0 35px rgba(0, 224, 255, 0.25);
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
