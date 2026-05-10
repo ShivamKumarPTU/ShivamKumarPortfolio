@@ -158,7 +158,7 @@
       <div class="video-overlay" style="background: rgba(0,0,0,0.5)"></div>
       <div class="container">
         <div style="max-width:800px; margin: 0 auto; text-align: center;">
-          <h1 class="hero-title" style="text-align: center;">Convert Your App Idea into reality</h1>
+          <h1 class="hero-title" style="text-align: center;"><span id="hero-title-text">Convert Your App Idea into reality</span><span class="hero-title-cursor">|</span></h1>
           <div class="hero-typing reveal-text" style="transition-delay:0.2s;">
             <span id="typing-text"></span><span class="typing-cursor">|</span>
           </div>
@@ -1105,21 +1105,54 @@
       gsap.registerPlugin(ScrollTrigger);
     }
 
+    function initHeroTitleTyping() {
+      const words = [
+        "Convert Your App Idea into reality",
+        "Always Dream of Having Your Own app",
+        "Let's Build Your Custom Android App",
+        "Turn Your Vision Into a Play Store Hit"
+      ];
+      let i = 0;
+      let timer;
+      const element = document.getElementById('hero-title-text');
+      if (!element) return;
+
+      function typingEffect() {
+        let word = words[i].split("");
+        var loopTyping = function() {
+          if (word.length > 0) {
+            element.textContent += word.shift();
+            timer = setTimeout(loopTyping, 60);
+          } else {
+            setTimeout(deletingEffect, 3000);
+          }
+        };
+        loopTyping();
+      }
+
+      function deletingEffect() {
+        let word = words[i].split("");
+        var loopDeleting = function() {
+          if (word.length > 0) {
+            word.pop();
+            element.textContent = word.join("");
+            timer = setTimeout(loopDeleting, 30);
+          } else {
+            i = (i + 1) % words.length;
+            setTimeout(typingEffect, 500);
+          }
+        };
+        loopDeleting();
+      }
+
+      element.textContent = "";
+      typingEffect();
+    }
+
     function initHeroText() {
       const heroTitle = document.querySelector('.hero-title');
       if (heroTitle) {
-        if (typeof SplitType !== 'undefined') {
-          const split = new SplitType(heroTitle, { types: 'chars,words' });
-          gsap.from(split.chars, {
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.015,
-            ease: "expo.out",
-            delay: 0.6,
-            clearProps: "y,opacity"
-          });
-        }
+        initHeroTitleTyping();
 
         // ScrollTrigger-based sweep (Scrubs lighting as you scroll)
         if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {

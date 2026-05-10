@@ -1062,6 +1062,21 @@ footer .video-overlay {
   50% { color: #4285F4; }
 }
 
+.hero-title-cursor {
+  animation: hero-blink 0.8s infinite step-end;
+  color: #00E0FF;
+  font-weight: 300;
+  margin-left: 6px;
+  -webkit-text-fill-color: #00E0FF;
+  display: inline-block;
+  font-family: monospace;
+}
+
+@keyframes hero-blink {
+  from, to { color: transparent; -webkit-text-fill-color: transparent; }
+  50% { color: #00E0FF; -webkit-text-fill-color: #00E0FF; }
+}
+
 /* --- Mobile Adjustments --- */
 @media (max-width: 992px) {
   .hero-grid, .about-grid, .contact-grid {
