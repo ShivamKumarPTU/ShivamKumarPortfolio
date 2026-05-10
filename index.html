@@ -817,6 +817,45 @@
     </div>
   </footer>
 
+  <!-- AI Chatbot Floating Interface -->
+  <div id="portfolio-chatbot" class="portfolio-chatbot-wrapper">
+    <div id="chat-toggle" class="chat-toggle-btn">
+      <i class="fas fa-robot"></i>
+      <span class="chat-toggle-badge">AI</span>
+    </div>
+
+    <div id="chat-window" class="chat-window">
+      <div class="chat-header">
+        <div class="chat-header-info">
+          <div class="chat-avatar">S</div>
+          <div>
+            <h4 class="chat-title">Shivam's AI Guide</h4>
+            <span class="chat-status"><span class="status-dot"></span> Online</span>
+          </div>
+        </div>
+        <button id="chat-close" class="chat-close-btn">&times;</button>
+      </div>
+
+      <div id="chat-messages" class="chat-messages">
+        <!-- Message list populated dynamically -->
+      </div>
+
+      <div class="chat-chips-container">
+        <div class="chat-chips">
+          <button class="chat-chip" data-query="What services do you offer?">🛠️ Services</button>
+          <button class="chat-chip" data-query="How can I hire Shivam?">🤝 Hire Shivam</button>
+          <button class="chat-chip" data-query="Can I see your portfolio?">📁 Portfolio</button>
+          <button class="chat-chip" data-query="How can I download your resume?">📄 Resume</button>
+        </div>
+      </div>
+
+      <form id="chat-form" class="chat-input-area">
+        <input type="text" id="chat-input" placeholder="Ask about Shivam's services..." required autocomplete="off" />
+        <button type="submit" class="chat-send-btn"><i class="fas fa-paper-plane"></i></button>
+      </form>
+    </div>
+  </div>
+
   <!-- Modular Modernised Scripts (Phase 4) -->
   <script src="/assets/js/main.js"></script>
   <script src="/assets/js/animations.js"></script>
