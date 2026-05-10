@@ -47,7 +47,7 @@
   <!-- Preloader -->
   <div id="preloader">
     <video class="preloader-video" autoplay muted loop playsinline preload="auto">
-      <source src="assets/rank2.0.mp4" type="video/mp4">
+      <source src="assets/download.mp4" type="video/mp4">
     </video>
     <div class="loader-content">
       <div class="loader-text">Shivam App Studio</div>
@@ -1873,8 +1873,14 @@ ${JSON.stringify(MY_DATA, null, 2)}
         showTypingIndicator();
 
         try {
-          // Use absolute Netlify URL to support chatbot on GitHub Pages & local development
-          const response = await fetch('https://shivamkumarportfolio.netlify.app/.netlify/functions/chat', {
+          // Dynamically resolve the chatbot endpoint
+          // When running on GitHub Pages or locally, we query your free, high-speed Vercel serverless function!
+          let endpoint = '/api/chat'; // Default relative path when deployed on Vercel
+          if (window.location.hostname !== 'shivamkumarportfolio.vercel.app' && !window.location.hostname.includes('vercel.app')) {
+            endpoint = 'https://shivamkumarportfolio.vercel.app/api/chat';
+          }
+
+          const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
               'Content-Type': 'text/plain'
