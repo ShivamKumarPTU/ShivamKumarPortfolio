@@ -17,9 +17,9 @@ const MY_DATA = {
     twitter: "https://x.com/WinksCool",
     freelancer: "https://www.freelancer.com/u/AndroidShivam",
     fiverr: "https://www.fiverr.com/sellers/shivamrana3_/edit",
-    website: "https://shivamkumarptu.github.io/ShivamKumarPortfolio/",
-    resume: "https://shivamkumarptu.github.io/ShivamKumarPortfolio/assets/Resume/Oracle_ShivamKumar_Resume.pdf",
-    calendly: "https://shivamkumarptu.github.io/ShivamKumarPortfolio/#Get-In-Touch",
+    website: "https://shivam-app-studio.vercel.app/",
+    resume: "https://shivam-app-studio.vercel.app/assets/Resume/Oracle_ShivamKumar_Resume.pdf",
+    calendly: "https://shivam-app-studio.vercel.app/#Get-In-Touch",
     avatar: "SK",
     status: "B.Tech student (2023–2027) + Actively available for freelance & full-time roles",
     responseTime: "Usually within 4–6 hours"
