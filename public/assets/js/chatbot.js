@@ -226,39 +226,129 @@ ${JSON.stringify(MY_DATA, null, 2)}
 - If asked personal/private questions not inside MY_DATA: "That's outside what I can answer here. Feel free to connect directly with Shivam on LinkedIn or via email."`;
 
   function formatMessageText(text) {
+    // 1. Escape HTML for security, keeping our generated HTML intact
     let escaped = text
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
-    // Replace markdown links first with a temporary unique placeholder, e.g., ___LINK_0___
-    const links = [];
+    // 2. Regex to match external http/https URLs in markdown [label](url)
+    const markdownLinks = [];
     escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, label, url) => {
-      const id = `___LINK_${links.length}___`;
-      links.push(`<a class="chat-link" href="${url}" target="_blank" rel="noopener noreferrer">${label}</a>`);
+      let cleanUrl = url;
+      let suffix = "";
+      const puncMatch = url.match(/[.,;:!)]+$/);
+      if (puncMatch) {
+        cleanUrl = url.substring(0, url.length - puncMatch[0].length);
+        suffix = puncMatch[0];
+      }
+      const id = `___MDLINK_${markdownLinks.length}___`;
+      markdownLinks.push(`<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="chat-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${label}</a>${suffix}`);
       return id;
     });
 
-    // Replace raw URLs (which are NOT part of any placeholder) with <a> tags
-    escaped = escaped.replace(/(https?:\/\/[^\s]+)/g, (match, url) => {
-      // If the url ends with punctuation, trim it out from the anchor href
+    // 3. Regex to match external http/https URLs (raw URLs)
+    const urlRegex = /(https?:\/\/[^\s<]+)/g;
+    escaped = escaped.replace(urlRegex, (url) => {
+      if (url.startsWith('___MDLINK_')) return url;
       let cleanUrl = url;
       let suffix = "";
-      const matchPunc = url.match(/[.,;:!)]+$/);
-      if (matchPunc) {
-        cleanUrl = url.substring(0, url.length - matchPunc[0].length);
-        suffix = matchPunc[0];
+      const puncMatch = url.match(/[.,;:!)]+$/);
+      if (puncMatch) {
+        cleanUrl = url.substring(0, url.length - puncMatch[0].length);
+        suffix = puncMatch[0];
       }
-      return `<a class="chat-link" href="${cleanUrl}" target="_blank" rel="noopener noreferrer">${cleanUrl}</a>` + suffix;
+      return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="chat-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${cleanUrl}</a>` + suffix;
     });
 
-    // Restore the markdown links from placeholders
-    links.forEach((linkHtml, index) => {
-      escaped = escaped.replace(`___LINK_${index}___`, linkHtml);
+    // 4. Restore the markdown links from placeholders
+    markdownLinks.forEach((linkHtml, index) => {
+      escaped = escaped.replace(`___MDLINK_${index}___`, linkHtml);
     });
 
-    return escaped.replace(/\n/g, '<br>');
-  }
+    // 5. Regex to match email addresses and open direct Gmail webmail composer in a new tab
+    const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
+    escaped = escaped.replace(emailRegex, (email) => {
+      let cleanEmail = email;
+      let suffix = "";
+      const puncMatch = email.match(/[.,;:!)]+$/);
+      if (puncMatch) {
+        cleanEmail = email.substring(0, email.length - puncMatch[0].length);
+        suffix = puncMatch[0];
+      }
+      return `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${cleanEmail}" target="_blank" rel="noopener noreferrer" class="chat-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${cleanEmail}</a>` + suffix;
+    });
+
+    // 6. Regex to match phone numbers (including standard +91 formatting and spaces)
+    const phoneRegex = /(\+91[\s-]?\d{5}[\s-]?\d{5}|\+91[\s-]?\d{10})/g;
+    escaped = escaped.replace(phoneRegex, (num) => {
+      const cleanNum = num.replace(/[\s-]/g, '');
+      return `<a href="tel:${cleanNum}" class="chat-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${num}</a>`;
+    });
+
+    // 7. Mapping of internal HTML page files with user-friendly clickable anchor tags
+    const htmlFiles = [
+      { file: 'awards.html', label: 'Awards & Honors' },
+      { file: 'about-shivam-kumar-android-developer.html', label: 'About Shivam' },
+      { file: 'android-developer-roadmap-by-shivam.html', label: 'Android Roadmap' },
+      { file: 'cost-of-android-app-development-india.html', label: 'App Cost Guide' },
+      { file: 'firebase-integration-android-guide.html', label: 'Firebase Guide' },
+      { file: 'kotlin-for-android-developers.html', label: 'Kotlin Guide' },
+      { file: 'android-project-ideas-guide.html', label: 'Project Ideas' },
+      { file: 'hire-android-developer-guide.html', label: 'Hire Android Developer' },
+      { file: 'android-app-case-studies.html', label: 'Case Studies' }
+    ];
+
+    htmlFiles.forEach(({ file, label }) => {
+      // Escape special regex characters in the filename
+      const escapedFile = file.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+      const regex = new RegExp(`\\b${escapedFile}\\b`, 'g');
+      escaped = escaped.replace(regex, `<a href="/${file}" class="chat-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${label}</a>`);
+    });
+
+    // 8. Format inline markdown (bold, italic, code)
+    escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+    escaped = escaped.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+    escaped = escaped.replace(/`([^`]+)`/g, '<code class="chat-code" style="background: rgba(255, 255, 255, 0.15); padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 0.9em; border: 1px solid rgba(255, 255, 255, 0.1); color: var(--blue);">$1</code>');
+
+    // 9. Structure line-by-line (perfect spacing and list layout)
+    const lines = escaped.split('\n');
+    const processedLines = lines.map((line) => {
+      const trimmed = line.trim();
+
+      // Bullet lists
+      const bulletMatch = line.match(/^(\s*)([-*+•])\s+(.*)$/);
+      if (bulletMatch) {
+        const content = bulletMatch[3];
+        return `<div class="chat-list-item" style="margin: 6px 0 6px 12px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;"><span style="color: var(--blue); flex-shrink: 0; font-size: 1.1em; line-height: 1.3;">•</span><span>${content}</span></div>`;
+      }
+
+      // Numbered lists
+      const numberMatch = line.match(/^(\s*)(\d+)\.\s+(.*)$/);
+      if (numberMatch) {
+        const num = numberMatch[2];
+        const content = numberMatch[3];
+        return `<div class="chat-list-item" style="margin: 6px 0 6px 12px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;"><span style="color: var(--blue); font-weight: 600; flex-shrink: 0; font-size: 0.95em; line-height: 1.4;">${num}.</span><span>${content}</span></div>`;
+      }
+
+      // Headers
+      const headerMatch = line.match(/^(\s*)(#{1,6})\s+(.*)$/);
+      if (headerMatch) {
+        const level = headerMatch[2].length;
+        const content = headerMatch[3];
+        const fontSize = level === 1 ? '1.25rem' : level === 2 ? '1.15rem' : '1.05rem';
+        return `<div style="font-weight: 700; margin: 14px 0 6px 0; color: #fff; font-size: ${fontSize}; line-height: 1.3;">${content}</div>`;
+      }
+
+      if (trimmed === '') {
+        return '<div style="height: 10px;"></div>';
+      }
+
+      return `<div style="margin-bottom: 8px; line-height: 1.5;">${line}</div>`;
+    });
+
+    return processedLines.join('');
+  };
 
   function appendMessage(sender, text) {
     const bubble = document.createElement('div');

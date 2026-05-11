@@ -234,29 +234,67 @@ ${contextMarkdown}
 - If asked personal/private questions not inside MY_DATA: "That's outside what I can answer here. Feel free to connect directly with Shivam on LinkedIn or via email."`;
 
 const formatChatbotResponse = (text: string) => {
-  // Replace direct newlines with <br /> for perfect message structure
-  let formatted = text.replace(/\n/g, '<br />');
+  // 1. Escape HTML for security, keeping our generated HTML intact
+  let escaped = text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 
-  // Regex to match external http/https URLs
-  const urlRegex = /(https?:\/\/[^\s]+)/g;
-  formatted = formatted.replace(urlRegex, (url) => {
-    return `<a href="${url}" target="_blank" rel="noopener noreferrer" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${url}</a>`;
+  // 2. Regex to match external http/https URLs in markdown [label](url)
+  const markdownLinks: string[] = [];
+  escaped = escaped.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (match, label, url) => {
+    let cleanUrl = url;
+    let suffix = "";
+    const puncMatch = url.match(/[.,;:!)]+$/);
+    if (puncMatch) {
+      cleanUrl = url.substring(0, url.length - puncMatch[0].length);
+      suffix = puncMatch[0];
+    }
+    const id = `___MDLINK_${markdownLinks.length}___`;
+    markdownLinks.push(`<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${label}</a>${suffix}`);
+    return id;
   });
 
-  // Regex to match email addresses and open direct Gmail webmail composer in a new tab
+  // 3. Regex to match external http/https URLs (raw URLs)
+  const urlRegex = /(https?:\/\/[^\s<]+)/g;
+  escaped = escaped.replace(urlRegex, (url) => {
+    if (url.startsWith('___MDLINK_')) return url;
+    let cleanUrl = url;
+    let suffix = "";
+    const puncMatch = url.match(/[.,;:!)]+$/);
+    if (puncMatch) {
+      cleanUrl = url.substring(0, url.length - puncMatch[0].length);
+      suffix = puncMatch[0];
+    }
+    return `<a href="${cleanUrl}" target="_blank" rel="noopener noreferrer" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${cleanUrl}</a>` + suffix;
+  });
+
+  // 4. Restore the markdown links from placeholders
+  markdownLinks.forEach((linkHtml, index) => {
+    escaped = escaped.replace(`___MDLINK_${index}___`, linkHtml);
+  });
+
+  // 5. Regex to match email addresses and open direct Gmail webmail composer in a new tab
   const emailRegex = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g;
-  formatted = formatted.replace(emailRegex, (email) => {
-    return `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${email}" target="_blank" rel="noopener noreferrer" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${email}</a>`;
+  escaped = escaped.replace(emailRegex, (email) => {
+    let cleanEmail = email;
+    let suffix = "";
+    const puncMatch = email.match(/[.,;:!)]+$/);
+    if (puncMatch) {
+      cleanEmail = email.substring(0, email.length - puncMatch[0].length);
+      suffix = puncMatch[0];
+    }
+    return `<a href="https://mail.google.com/mail/?view=cm&fs=1&to=${cleanEmail}" target="_blank" rel="noopener noreferrer" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${cleanEmail}</a>` + suffix;
   });
 
-  // Regex to match phone numbers (including standard +91 formatting and spaces)
+  // 6. Regex to match phone numbers (including standard +91 formatting and spaces)
   const phoneRegex = /(\+91[\s-]?\d{5}[\s-]?\d{5}|\+91[\s-]?\d{10})/g;
-  formatted = formatted.replace(phoneRegex, (num) => {
+  escaped = escaped.replace(phoneRegex, (num) => {
     const cleanNum = num.replace(/[\s-]/g, '');
     return `<a href="tel:${cleanNum}" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${num}</a>`;
   });
 
-  // Mapping of internal HTML page files with user-friendly clickable anchor tags
+  // 7. Mapping of internal HTML page files with user-friendly clickable anchor tags
   const htmlFiles = [
     { file: 'awards.html', label: 'Awards & Honors' },
     { file: 'about-shivam-kumar-android-developer.html', label: 'About Shivam' },
@@ -273,10 +311,51 @@ const formatChatbotResponse = (text: string) => {
     // Escape special regex characters in the filename
     const escapedFile = file.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     const regex = new RegExp(`\\b${escapedFile}\\b`, 'g');
-    formatted = formatted.replace(regex, `<a href="/${file}" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${label}</a>`);
+    escaped = escaped.replace(regex, `<a href="/${file}" class="chat-inline-link" style="color: var(--blue); text-decoration: underline; font-weight: 600; text-shadow: 0 0 10px rgba(0, 224, 255, 0.3); transition: color 0.3s;">${label}</a>`);
   });
 
-  return formatted;
+  // 8. Format inline markdown (bold, italic, code)
+  escaped = escaped.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  escaped = escaped.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+  escaped = escaped.replace(/`([^`]+)`/g, '<code class="chat-code" style="background: rgba(255, 255, 255, 0.15); padding: 2px 6px; border-radius: 4px; font-family: \'Fira Code\', monospace; font-size: 0.9em; border: 1px solid rgba(255, 255, 255, 0.1); color: var(--blue);">$1</code>');
+
+  // 9. Structure line-by-line (perfect spacing and list layout)
+  const lines = escaped.split('\n');
+  const processedLines = lines.map((line) => {
+    const trimmed = line.trim();
+
+    // Bullet lists
+    const bulletMatch = line.match(/^(\s*)([-*+•])\s+(.*)$/);
+    if (bulletMatch) {
+      const content = bulletMatch[3];
+      return `<div class="chat-list-item" style="margin: 6px 0 6px 12px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;"><span style="color: var(--blue); flex-shrink: 0; font-size: 1.1em; line-height: 1.3;">•</span><span>${content}</span></div>`;
+    }
+
+    // Numbered lists
+    const numberMatch = line.match(/^(\s*)(\d+)\.\s+(.*)$/);
+    if (numberMatch) {
+      const num = numberMatch[2];
+      const content = numberMatch[3];
+      return `<div class="chat-list-item" style="margin: 6px 0 6px 12px; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;"><span style="color: var(--blue); font-weight: 600; flex-shrink: 0; font-size: 0.95em; line-height: 1.4;">${num}.</span><span>${content}</span></div>`;
+    }
+
+    // Headers
+    const headerMatch = line.match(/^(\s*)(#{1,6})\s+(.*)$/);
+    if (headerMatch) {
+      const level = headerMatch[2].length;
+      const content = headerMatch[3];
+      const fontSize = level === 1 ? '1.25rem' : level === 2 ? '1.15rem' : '1.05rem';
+      return `<div style="font-weight: 700; margin: 14px 0 6px 0; color: #fff; font-size: ${fontSize}; line-height: 1.3;">${content}</div>`;
+    }
+
+    if (trimmed === '') {
+      return '<div style="height: 10px;"></div>';
+    }
+
+    return `<div style="margin-bottom: 8px; line-height: 1.5;">${line}</div>`;
+  });
+
+  return processedLines.join('');
 };
 
 const Chatbot = () => {
