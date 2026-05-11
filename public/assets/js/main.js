@@ -6,7 +6,7 @@
   // Configuration: Update these with your active EmailJS values to receive emails directly!
   const EMAILJS_CONFIG = {
     serviceId: "service_i597mpn",   // Update this with your EmailJS Service ID (e.g., "service_xxxxxx")
-    templateId: "template_pgfjtcc"  // Update this with your EmailJS Template ID (e.g., "template_xxxxxx")
+    templateId: "template_aevjqco"  // Update this with your EmailJS Template ID (e.g., "template_xxxxxx")
   };
 
   // Base64 keys for security (Phase 1)
