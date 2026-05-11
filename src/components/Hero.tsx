@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const Hero = () => {
   const [backgroundPosition, setBackgroundPosition] = useState('0% 0%');
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLHeadingElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -21,6 +23,14 @@ const Hero = () => {
     "Turn Your Vision Into a Play Store Hit"
   ];
   const [typedTitle, setTypedTitle] = useState('');
+
+  useEffect(() => {
+    if (videoRef.current) {
+      if (videoRef.current.readyState >= 3) {
+        setIsVideoLoaded(true);
+      }
+    }
+  }, []);
 
   useEffect(() => {
     let wordIndex = 0;
@@ -58,9 +68,31 @@ const Hero = () => {
   return (
     <>
       {/* Global Background Video */}
-      <video className="global-video-bg" autoPlay muted loop playsInline preload="auto">
+      <video
+        ref={videoRef}
+        className="global-video-bg"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        onLoadedData={() => setIsVideoLoaded(true)}
+      >
         <source src="assets/hero1.mp4" type="video/mp4" />
       </video>
+
+      {/* Preload Background Banner Image (Fades out once video is loaded) */}
+      <motion.img
+        src="assets/bannerImg.png"
+        alt=""
+        className="global-video-bg"
+        style={{
+          pointerEvents: 'none',
+        }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isVideoLoaded ? 0 : 1 }}
+        transition={{ duration: 1.0, ease: 'easeInOut' }}
+      />
 
       <section id="home" className="hero">
         <div className="container">
