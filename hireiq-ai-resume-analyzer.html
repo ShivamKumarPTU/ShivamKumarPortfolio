@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="6EvkiH_6UD7GSAA1kLT2AkNDgMDuyshb3OgQfzqtlrc" />
+  <title>HireIQ — AI Resume Analyzer by Shivam Kumar | Google Gemini · Spring Boot · React</title>
+  <meta name="description" content="HireIQ is a full-stack AI resume analyzer built by Shivam Kumar. Uses Google Gemini AI to extract skills, evaluate resumes, and suggest improvements. Built with React, Spring Boot, MySQL, and Adzuna API for job matching. Live app available.">
+  <meta name="keywords" content="HireIQ, AI resume analyzer, Shivam Kumar project, Google Gemini resume, resume skill extraction, Spring Boot React project, HireIQ Shivam Kumar, AI resume evaluation India, job suggestion app, Adzuna API project">
+  <meta name="author" content="Shivam Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shivam-app-studio.vercel.app/hireiq-ai-resume-analyzer.html">
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://shivam-app-studio.vercel.app/hireiq-ai-resume-analyzer.html" />
+  <meta property="og:title" content="HireIQ — AI Resume Analyzer by Shivam Kumar" />
+  <meta property="og:description" content="Full-stack AI resume analyzer using Google Gemini, Spring Boot, React, and Adzuna API for job suggestions. Built by Shivam Kumar." />
+  <meta property="og:image" content="https://shivam-app-studio.vercel.app/banner.png" />
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="HireIQ — AI Resume Analyzer by Shivam Kumar" />
+  <meta property="twitter:description" content="AI-powered resume analysis using Google Gemini, Spring Boot, React. Live app by Shivam Kumar." />
+  <meta property="twitter:image" content="https://shivam-app-studio.vercel.app/banner.png" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "HireIQ",
+    "url": "https://resume-analyser-kp0f.onrender.com/",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "description": "HireIQ is an AI-powered resume analyzer that uses Google Gemini to extract skills, evaluate resume quality, suggest improvements, and recommend matching jobs via the Adzuna API.",
+    "author": { "@type": "Person", "name": "Shivam Kumar", "url": "https://shivam-app-studio.vercel.app/" },
+    "programmingLanguage": ["Java", "JavaScript", "React", "Spring Boot", "MySQL"],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://shivam-app-studio.vercel.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://shivam-app-studio.vercel.app/android-app-case-studies.html" },
+      { "@type": "ListItem", "position": 3, "name": "HireIQ", "item": "https://shivam-app-studio.vercel.app/hireiq-ai-resume-analyzer.html" }
+    ]
+  }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="/assets/logo1.jpeg">
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #0a0a1a; color: #fff; margin: 0; padding: 0; }
+    .hero { min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 120px 20px 60px; background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 100%); text-align: center; }
+    .hero-content { max-width: 800px; }
+    .badge { display: inline-block; background: rgba(99,102,241,0.2); border: 1px solid rgba(99,102,241,0.4); color: #a5b4fc; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; margin-bottom: 20px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 20px; }
+    h1 span { color: #6366f1; }
+    .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 40px; line-height: 1.7; }
+    .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #6366f1; color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+    .btn-primary:hover { background: #4f46e5; transform: translateY(-2px); }
+    .btn-secondary { border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+    .section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+    .section h2 { font-size: 2rem; margin-bottom: 40px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .feature-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; }
+    .feature-card .icon { font-size: 2rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .feature-card p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.6; }
+    .stack-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .stack-tag { background: rgba(99,102,241,0.15); border: 1px solid rgba(99,102,241,0.3); color: #a5b4fc; padding: 8px 18px; border-radius: 20px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+  <a href="/" style="display:inline-flex;align-items:center;gap:8px;color:#6366f1;text-decoration:none;font-weight:600;padding:20px;font-family:'Poppins',sans-serif;">← Back to Portfolio</a>
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge">🤖 AI Project · Live App</div>
+      <h1><span>HireIQ</span> — AI Resume Analyzer</h1>
+      <p class="subtitle">A full-stack web application that analyzes resumes using Google Gemini AI — extracting skills, evaluating quality, suggesting improvements, and recommending matching jobs via the Adzuna API.</p>
+      <div class="cta-group">
+        <a href="https://resume-analyser-kp0f.onrender.com/" target="_blank" class="btn-primary"><i class="fas fa-external-link-alt"></i> View Live App</a>
+        <a href="https://github.com/ShivamKumarPTU/HireIQ" target="_blank" class="btn-secondary"><i class="fab fa-github"></i> View on GitHub</a>
+      </div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>What HireIQ Does</h2>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="icon">🧠</div><h3>AI Resume Analysis</h3><p>Uses Google Gemini AI to deeply analyze uploaded resumes, identifying strengths, weaknesses, and areas for improvement.</p></div>
+      <div class="feature-card"><div class="icon">🎯</div><h3>Skill Extraction</h3><p>Automatically identifies and categorizes technical and soft skills from any resume format.</p></div>
+      <div class="feature-card"><div class="icon">💡</div><h3>Improvement Suggestions</h3><p>Provides actionable, specific suggestions to improve resume score and increase interview chances.</p></div>
+      <div class="feature-card"><div class="icon">🔍</div><h3>Job Matching</h3><p>Integrates Adzuna API to suggest real job openings that match the candidate's skill profile.</p></div>
+      <div class="feature-card"><div class="icon">🔐</div><h3>Secure Auth</h3><p>Email verification and password reset flows using Brevo for secure, production-ready authentication.</p></div>
+      <div class="feature-card"><div class="icon">📊</div><h3>Resume Scoring</h3><p>Generates a quantitative resume score with detailed breakdown so candidates know exactly where they stand.</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <h2>Tech Stack</h2>
+    <div class="stack-grid">
+      <span class="stack-tag">React.js</span>
+      <span class="stack-tag">Spring Boot</span>
+      <span class="stack-tag">Google Gemini AI</span>
+      <span class="stack-tag">MySQL</span>
+      <span class="stack-tag">Adzuna API</span>
+      <span class="stack-tag">Brevo (Email)</span>
+      <span class="stack-tag">Java</span>
+      <span class="stack-tag">REST API</span>
+    </div>
+  </div>
+  <div class="section" style="text-align:center; padding-bottom: 120px;">
+    <h2>Built by Shivam Kumar</h2>
+    <p style="color:rgba(255,255,255,0.7); margin-bottom:32px;">Android Developer &amp; AI Systems Engineer from Puducherry, India.<br>Currently at OneBill · Founder of Zygo · Swiggy Builders Club</p>
+    <a href="mailto:hire.shivamkumar@gmail.com" class="btn-primary"><i class="fas fa-envelope"></i> Hire Me for Your Project</a>
+  </div>
+</body>
+</html>

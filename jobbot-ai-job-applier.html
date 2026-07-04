@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google-site-verification" content="6EvkiH_6UD7GSAA1kLT2AkNDgMDuyshb3OgQfzqtlrc" />
+
+  <title>JobBot — AI-Powered Job Applier by Shivam Kumar | Claude AI · FastAPI · Playwright</title>
+  <meta name="description" content="JobBot is an AI-powered semi-automated job application engine built by Shivam Kumar. Scrapes 20+ job portals, scores jobs using Claude AI, auto-fills Greenhouse &amp; Lever applications, generates cover letters, and drafts follow-up emails. Built with FastAPI, React, Playwright, and SQLite.">
+  <meta name="keywords" content="JobBot, AI job applier, Shivam Kumar JobBot, automated job application, Claude AI job bot, FastAPI Playwright project, job scraper India, Greenhouse Lever auto apply, cover letter generator AI, JobBot Shivam Kumar GitHub">
+  <meta name="author" content="Shivam Kumar">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://shivam-app-studio.vercel.app/jobbot-ai-job-applier.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://shivam-app-studio.vercel.app/jobbot-ai-job-applier.html" />
+  <meta property="og:title" content="JobBot — AI-Powered Job Applier by Shivam Kumar" />
+  <meta property="og:description" content="Semi-automated job engine: scrapes 20+ portals, scores with Claude AI, auto-fills applications, generates cover letters. Built with FastAPI, React, Playwright." />
+  <meta property="og:image" content="https://shivam-app-studio.vercel.app/banner.png" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:title" content="JobBot — AI-Powered Job Applier by Shivam Kumar" />
+  <meta property="twitter:description" content="AI job application engine: 20+ portals, Claude AI scoring, auto-fill, cover letters, Discord alerts. By Shivam Kumar." />
+  <meta property="twitter:image" content="https://shivam-app-studio.vercel.app/banner.png" />
+
+  <!-- Schema: SoftwareApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "JobBot",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "Web, Linux, Windows",
+    "description": "JobBot is a semi-automated AI job application engine. It scrapes 20+ job portals every 8 hours, scores every job 0-100 against your profile using Claude AI, auto-fills Greenhouse and Lever ATS forms, generates personalized cover letters, and drafts follow-up emails.",
+    "author": {
+      "@type": "Person",
+      "name": "Shivam Kumar",
+      "url": "https://shivam-app-studio.vercel.app/"
+    },
+    "programmingLanguage": ["Python", "JavaScript", "React", "FastAPI"],
+    "codeRepository": "https://github.com/ShivamKumarPTU/JobBot"
+  }
+  </script>
+
+  <!-- Schema: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://shivam-app-studio.vercel.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Projects", "item": "https://shivam-app-studio.vercel.app/android-app-case-studies.html" },
+      { "@type": "ListItem", "position": 3, "name": "JobBot", "item": "https://shivam-app-studio.vercel.app/jobbot-ai-job-applier.html" }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/jpeg" href="/assets/logo1.jpeg">
+
+  <style>
+    body { font-family: 'Poppins', sans-serif; background: #0a0a1a; color: #fff; margin: 0; padding: 0; }
+    .hero { min-height: 60vh; display: flex; align-items: center; justify-content: center; padding: 120px 20px 60px; background: linear-gradient(135deg, #0a0a1a 0%, #0f2027 50%, #1a0a2e 100%); text-align: center; }
+    .hero-content { max-width: 800px; }
+    .badge { display: inline-block; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.35); color: #6ee7b7; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; margin-bottom: 20px; }
+    h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 20px; }
+    h1 span { color: #10b981; }
+    .subtitle { font-size: 1.1rem; color: rgba(255,255,255,0.7); margin-bottom: 40px; line-height: 1.7; }
+    .cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary { background: #10b981; color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+    .btn-primary:hover { background: #059669; transform: translateY(-2px); }
+    .btn-secondary { border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 14px 32px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+    .btn-secondary:hover { background: rgba(255,255,255,0.1); }
+    .section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+    .section h2 { font-size: 2rem; margin-bottom: 40px; }
+    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 24px; }
+    .feature-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 28px; }
+    .feature-card .icon { font-size: 2rem; margin-bottom: 16px; }
+    .feature-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+    .feature-card p { color: rgba(255,255,255,0.65); font-size: 0.95rem; line-height: 1.6; }
+    .tier-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    .tier-table th { background: rgba(16,185,129,0.15); padding: 14px 20px; text-align: left; font-size: 0.95rem; color: #6ee7b7; }
+    .tier-table td { padding: 14px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 0.9rem; color: rgba(255,255,255,0.75); }
+    .stack-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+    .stack-tag { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.28); color: #6ee7b7; padding: 8px 18px; border-radius: 20px; font-size: 0.9rem; }
+    .philosophy { background: rgba(16,185,129,0.08); border-left: 4px solid #10b981; border-radius: 8px; padding: 24px 28px; margin-top: 20px; font-style: italic; color: rgba(255,255,255,0.8); line-height: 1.8; }
+  </style>
+</head>
+<body>
+
+  <a href="/" style="display:inline-flex;align-items:center;gap:8px;color:#10b981;text-decoration:none;font-weight:600;padding:20px;font-family:'Poppins',sans-serif;">← Back to Portfolio</a>
+
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge">🤖 AI Project · Open Source</div>
+      <h1><span>JobBot</span> — AI Job Applier</h1>
+      <p class="subtitle">
+        A semi-automated job application engine that scrapes 20+ portals,
+        scores every job against your profile using Claude AI (0–100),
+        auto-fills applications, generates cover letters, and drafts follow-up emails.
+        Bot does 90% of the work. You click Submit.
+      </p>
+      <div class="cta-group">
+        <a href="https://github.com/ShivamKumarPTU/JobBot" target="_blank" class="btn-primary">
+          <i class="fab fa-github"></i> View on GitHub
+        </a>
+        <a href="mailto:hire.shivamkumar@gmail.com" class="btn-secondary">
+          <i class="fas fa-envelope"></i> Hire Me
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>What JobBot Does</h2>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="icon">🔍</div>
+        <h3>Scrapes 20+ Job Portals</h3>
+        <p>Every 8 hours, fetches jobs from Greenhouse, Lever, RemoteOK, LinkedIn, Naukri, iimjobs, HackerNews, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🧠</div>
+        <h3>Claude AI Scoring</h3>
+        <p>Every job is scored 0–100 against your profile using Claude 3.5 Sonnet. You only see the best matches.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🤖</div>
+        <h3>Auto-fills Applications</h3>
+        <p>For Greenhouse &amp; Lever ATS, Playwright auto-types your details into forms. You review, then click Submit.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📝</div>
+        <h3>Cover Letter Generator</h3>
+        <p>Generates a personalized cover letter for each job using your profile + the job description via Claude AI.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">📧</div>
+        <h3>Follow-up Email Drafts</h3>
+        <p>7 days after applying, JobBot drafts a follow-up email so you never miss a chance to re-engage recruiters.</p>
+      </div>
+      <div class="feature-card">
+        <div class="icon">🔔</div>
+        <h3>Discord Alerts</h3>
+        <p>Pings your Discord when a high-match job lands (score 80+) so you act fast on the best opportunities.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Two-Tier Apply System</h2>
+    <table class="tier-table">
+      <thead>
+        <tr>
+          <th>Tier</th>
+          <th>Sources</th>
+          <th>What Happens</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>✅ Auto-Apply</td>
+          <td>Greenhouse, Lever</td>
+          <td>Bot fills form visibly → pauses → you review → you click Submit</td>
+        </tr>
+        <tr>
+          <td>⚠️ Manual Only</td>
+          <td>Naukri, LinkedIn, Glassdoor, iimjobs</td>
+          <td>JobBot scores &amp; tracks it → you click "Open Application →"</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="philosophy">
+      "Bot handles 90% of the work. You spend 2 minutes reviewing, then click Submit. Human stays in the loop. No account bans."
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Tech Stack</h2>
+    <div class="stack-grid">
+      <span class="stack-tag">Python 3.11+</span>
+      <span class="stack-tag">FastAPI</span>
+      <span class="stack-tag">React 18</span>
+      <span class="stack-tag">Playwright</span>
+      <span class="stack-tag">Claude AI (Anthropic)</span>
+      <span class="stack-tag">APScheduler</span>
+      <span class="stack-tag">SQLite</span>
+      <span class="stack-tag">BeautifulSoup</span>
+      <span class="stack-tag">Discord Webhooks</span>
+      <span class="stack-tag">Vite</span>
+    </div>
+  </div>
+
+  <div class="section" style="text-align:center; padding-bottom: 120px;">
+    <h2>Built by Shivam Kumar</h2>
+    <p style="color:rgba(255,255,255,0.7); margin-bottom:32px;">
+      Android Developer &amp; AI Systems Engineer from Puducherry, India.<br>
+      Currently at OneBill · Founder of Zygo · Swiggy Builders Club
+    </p>
+    <a href="mailto:hire.shivamkumar@gmail.com" class="btn-primary">
+      <i class="fas fa-envelope"></i> Hire Me for Your Project
+    </a>
+  </div>
+
+</body>
+</html>
